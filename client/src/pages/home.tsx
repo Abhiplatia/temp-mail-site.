@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Mail } from 'lucide-react';
+import { Link } from 'wouter';
 import { mailAPI, Domain } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
 import EmailDisplay from '@/components/email-display';
@@ -153,8 +154,17 @@ export default function Home() {
                 QuickTempMail<span className="text-primary">.live</span>
               </h1>
             </div>
-            <div className="text-sm text-muted-foreground hidden sm:block">
-              Free • Anonymous • No Signup
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-muted-foreground hidden sm:block">
+                Free • Anonymous • No Signup
+              </div>
+              <Link 
+                href="/about" 
+                className="text-sm text-primary hover:text-primary/80 transition-colors"
+                data-testid="link-about"
+              >
+                Learn More
+              </Link>
             </div>
           </div>
         </div>
