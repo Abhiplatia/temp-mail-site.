@@ -153,11 +153,8 @@ export default function Home() {
                 QuickTempMail<span className="text-primary">.live</span>
               </h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-muted-foreground hidden sm:block">
-                Free • Anonymous • No Signup
-              </div>
-              <ThemeToggle />
+            <div className="text-sm text-muted-foreground hidden sm:block">
+              Free • Anonymous • No Signup
             </div>
           </div>
         </div>
@@ -200,23 +197,16 @@ export default function Home() {
               onExtendTime={handleExtendTime}
             />
 
-            {/* Domain Selection */}
-            {domains.length > 0 && (
-              <div className="bg-card border border-border rounded-xl p-4 shadow-sm mb-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-medium text-foreground mb-1">Email Domain</h3>
-                    <p className="text-xs text-muted-foreground">Choose your preferred domain or generate a new email</p>
-                  </div>
-                  <DomainSelector
-                    domains={domains}
-                    selectedDomain={selectedDomain}
-                    onDomainSelect={handleDomainSelect}
-                    onGenerateNew={handleGenerateNew}
-                  />
-                </div>
-              </div>
-            )}
+            {/* Generate New Email Button */}
+            <div className="text-center mb-6">
+              <button 
+                onClick={handleGenerateNew}
+                className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition-colors font-medium"
+                data-testid="button-generate-fresh-mail"
+              >
+                Generate Fresh New Mail
+              </button>
+            </div>
 
             {/* Ad Placement */}
             <AdBanner 

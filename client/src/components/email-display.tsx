@@ -53,7 +53,7 @@ export default function EmailDisplay({ email, onExtendTime }: EmailDisplayProps)
         <p className="text-sm text-muted-foreground mb-2">Your temporary email address:</p>
         <div className="bg-muted/50 rounded-lg p-4 mb-4 border border-border/50">
           <p 
-            className="text-2xl sm:text-3xl font-mono font-bold text-foreground break-all"
+            className="text-xl sm:text-2xl font-sans font-normal text-foreground break-all"
             data-testid="text-email-address"
           >
             {email}
@@ -71,14 +71,6 @@ export default function EmailDisplay({ email, onExtendTime }: EmailDisplayProps)
               <Copy className="w-4 h-4" />
             )}
             <span>{copied ? 'Copied!' : 'Copy Email'}</span>
-          </button>
-          <button 
-            onClick={handleExtend}
-            className="flex items-center space-x-2 bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:bg-secondary/80 transition-colors"
-            data-testid="button-extend-timer"
-          >
-            <Clock className="w-4 h-4" />
-            <span>Extend Time</span>
           </button>
         </div>
       </div>

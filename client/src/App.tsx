@@ -36,7 +36,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="quicktempmail-theme">
+      <ThemeProvider defaultTheme="light" storageKey="quicktempmail-theme">
         <TooltipProvider>
           <Router />
           <Toaster />

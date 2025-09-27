@@ -80,13 +80,6 @@ export default function CountdownTimer({ initialTime, onTimeUp, onExtend }: Coun
           {formatTime(remainingTime)}
         </p>
         <p className="text-sm text-muted-foreground">Time remaining</p>
-        <button 
-          onClick={handleExtend}
-          className="mt-2 text-xs text-primary hover:text-primary/80 underline"
-          data-testid="button-extend-time"
-        >
-          +5 minutes
-        </button>
       </div>
     </div>
   );
