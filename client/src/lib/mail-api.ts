@@ -93,7 +93,9 @@ class MailAPI {
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || `Failed to create account: ${response.status}`);
+        const errorMessage = errorData.detail || errorData.message || `HTTP ${response.status}`;
+        console.log('Account creation failed with status:', response.status, 'Error:', errorMessage);
+        throw new Error(errorMessage);
       }
       
       return await response.json();

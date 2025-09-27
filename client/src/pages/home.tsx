@@ -21,6 +21,7 @@ export default function Home() {
   const [clickCount, setClickCount] = useState<number>(0);
   const [retryCount, setRetryCount] = useState<number>(0);
   const [isRetrying, setIsRetrying] = useState<boolean>(false);
+  const [lastAttemptTime, setLastAttemptTime] = useState<number>(0);
   const [location] = useLocation();
   const { toast } = useToast();
 
@@ -29,7 +30,21 @@ export default function Home() {
     if (loading || isRetrying) {
       return;
     }
+    
     const now = Date.now();
+    const timeSinceLastAttempt = now - lastAttemptTime;
+    
+    // Global cooldown to prevent hitting Mail.tm rate limits (10 seconds minimum between attempts)
+    if (!bypassRateLimit && lastAttemptTime > 0 && timeSinceLastAttempt < 10000) {
+      const remainingCooldown = Math.ceil((10000 - timeSinceLastAttempt) / 1000);
+      toast({
+        title: "Please wait",
+        description: `Please wait ${remainingCooldown} more seconds before generating a new email.`,
+        variant: "default",
+      });
+      return;
+    }
+    
     const timeSinceLastGeneration = now - lastGenerationTime;
     
     // Smart rate limiting: only prevent rapid spam clicking, not legitimate navigation
@@ -67,6 +82,7 @@ export default function Home() {
       setLoading(true);
       setError(null);
       setLastGenerationTime(now);
+      setLastAttemptTime(now); // Track attempt time for cooldown
       setClickCount(0); // Reset click count on successful generation
 
       // Track email generation attempt
@@ -107,53 +123,52 @@ export default function Home() {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to generate email';
       
-      // Special handling for rate limiting
-      if (errorMessage.includes('429')) {
+      // Check if it's a rate limiting error (429 or contains "rate" keywords)
+      const isRateLimit = errorMessage.includes('429') || errorMessage.toLowerCase().includes('rate') || errorMessage.toLowerCase().includes('limit');
+      
+      if (isRateLimit && retryCount < 3) {
         const currentRetryCount = retryCount + 1;
         setRetryCount(currentRetryCount);
         
-        // Limit retries to prevent infinite loops
-        if (currentRetryCount <= 3) {
-          // Fixed backoff delays: 2s, 5s, 10s as specified
-          const delays = [2000, 5000, 10000];
-          const delay = delays[currentRetryCount - 1] || 10000;
-          
-          setIsRetrying(true);
-          toast({
-            title: "Service busy",
-            description: `High traffic detected. Retrying in ${delay/1000} seconds... (${currentRetryCount}/3)`,
-            variant: "default",
-          });
-          trackEvent('email_generation', 'rate_limit', `retry_${currentRetryCount}`);
-          
-          // Auto-retry with proper backoff
-          setTimeout(() => {
-            setIsRetrying(false);
-            generateEmail(domain, true); // Bypass rate limit for retry
-          }, delay);
-          return; // Keep loading state active during retry
-        } else {
-          // Max retries reached - show helpful message and allow manual retry
-          setRetryCount(0); // Reset for next manual attempt
+        // Longer backoff delays to reduce load on Mail.tm: 5s, 15s, 30s
+        const delays = [5000, 15000, 30000];
+        const delay = delays[currentRetryCount - 1] || 30000;
+        
+        setIsRetrying(true);
+        toast({
+          title: "Service busy",
+          description: `High traffic detected. Retrying in ${delay/1000} seconds... (${currentRetryCount}/3)`,
+          variant: "default",
+        });
+        trackEvent('email_generation', 'rate_limit', `retry_${currentRetryCount}`);
+        
+        // Auto-retry with proper backoff
+        setTimeout(() => {
           setIsRetrying(false);
-          setError(null); // Don't set permanent error
+          generateEmail(domain, true); // Bypass rate limit for retry
+        }, delay);
+        return; // Keep loading state active during retry
+      } else {
+        // Max retries reached or other error - stop retrying
+        setRetryCount(0);
+        setIsRetrying(false);
+        
+        if (isRateLimit) {
           toast({
             title: "Service temporarily unavailable",
-            description: "Please try again in a few minutes. The service is experiencing high traffic.",
+            description: "Please wait a few minutes before trying again. The email service is experiencing high traffic.",
             variant: "default",
           });
           trackEvent('email_generation', 'rate_limit', 'max_retries_reached');
+        } else {
+          setError(errorMessage);
+          toast({
+            title: "Generation failed",
+            description: errorMessage,
+            variant: "destructive",
+          });
+          trackEvent('email_generation', 'error', errorMessage);
         }
-      } else {
-        setError(errorMessage);
-        setRetryCount(0); // Reset retry count on other errors
-        setIsRetrying(false);
-        toast({
-          title: "Generation failed",
-          description: errorMessage,
-          variant: "destructive",
-        });
-        trackEvent('email_generation', 'error', errorMessage);
       }
     } finally {
       // Only set loading to false if not retrying
