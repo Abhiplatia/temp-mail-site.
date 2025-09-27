@@ -40,7 +40,7 @@ export default function CountdownTimer({ initialTime, onTimeUp, onExtend }: Coun
   }, [remainingTime, onTimeUp]);
 
   const handleExtend = () => {
-    setRemainingTime(prev => prev + 300); // Add 5 minutes
+    setRemainingTime(600); // Reset to 10 minutes
     onExtend();
   };
 
@@ -80,6 +80,13 @@ export default function CountdownTimer({ initialTime, onTimeUp, onExtend }: Coun
           {formatTime(remainingTime)}
         </p>
         <p className="text-sm text-muted-foreground">Time remaining</p>
+        <button 
+          onClick={handleExtend}
+          className="mt-2 text-xs text-primary hover:text-primary/80 underline"
+          data-testid="button-extend-time"
+        >
+          Extend
+        </button>
       </div>
     </div>
   );
