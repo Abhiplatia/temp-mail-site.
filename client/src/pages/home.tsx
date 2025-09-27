@@ -195,18 +195,8 @@ export default function Home() {
             <EmailDisplay 
               email={currentEmail} 
               onExtendTime={handleExtendTime}
+              onGenerateNew={handleGenerateNew}
             />
-
-            {/* Generate New Email Button */}
-            <div className="text-center mb-6">
-              <button 
-                onClick={handleGenerateNew}
-                className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition-colors font-medium"
-                data-testid="button-generate-fresh-mail"
-              >
-                Generate Fresh New Mail
-              </button>
-            </div>
 
             {/* Ad Placement */}
             <AdBanner 
