@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Mail } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { mailAPI, Domain } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
 import EmailDisplay from '@/components/email-display';
@@ -18,28 +18,56 @@ export default function Home() {
   const [domains, setDomains] = useState<Domain[]>([]);
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
   const [lastGenerationTime, setLastGenerationTime] = useState<number>(0);
+  const [clickCount, setClickCount] = useState<number>(0);
+  const [retryCount, setRetryCount] = useState<number>(0);
+  const [isRetrying, setIsRetrying] = useState<boolean>(false);
+  const [location] = useLocation();
   const { toast } = useToast();
 
-  const generateEmail = async (domain?: Domain) => {
-    // Rate limiting: prevent rapid successive calls
+  const generateEmail = async (domain?: Domain, bypassRateLimit?: boolean) => {
+    // Prevent duplicate calls while already processing
+    if (loading || isRetrying) {
+      return;
+    }
     const now = Date.now();
     const timeSinceLastGeneration = now - lastGenerationTime;
-    const minInterval = 3000; // 3 seconds minimum between generations
-
-    if (timeSinceLastGeneration < minInterval && lastGenerationTime > 0) {
-      const waitTime = Math.ceil((minInterval - timeSinceLastGeneration) / 1000);
-      toast({
-        title: "Please wait",
-        description: `Wait ${waitTime} more seconds before generating a new email.`,
-        variant: "default",
-      });
-      return;
+    
+    // Smart rate limiting: only prevent rapid spam clicking, not legitimate navigation
+    // Allow bypassing rate limit for legitimate navigation (e.g., from about page)
+    if (!bypassRateLimit && lastGenerationTime > 0) {
+      // Very short interval for spam prevention (500ms) instead of 3 seconds
+      const spamInterval = 500;
+      
+      // Count rapid clicks with proper state handling
+      if (timeSinceLastGeneration < spamInterval) {
+        setClickCount(prev => {
+          const newCount = prev + 1;
+          // Check threshold with updated value
+          if (newCount >= 3) {
+            toast({
+              title: "Slow down",
+              description: "Please wait a moment between email generations.",
+              variant: "default",
+            });
+          }
+          return newCount;
+        });
+        
+        // Return early if already at threshold
+        if (clickCount >= 2) { // Since we're about to increment
+          return;
+        }
+      } else {
+        // Reset click count after normal interval
+        setClickCount(0);
+      }
     }
 
     try {
       setLoading(true);
       setError(null);
       setLastGenerationTime(now);
+      setClickCount(0); // Reset click count on successful generation
 
       // Track email generation attempt
       trackEvent('email_generation', 'user_action', 'generate_email');
@@ -66,6 +94,7 @@ export default function Home() {
       await mailAPI.getAuthToken(email, password);
 
       setCurrentEmail(email);
+      setRetryCount(0); // Reset retry count on success
       
       // Track successful email generation
       trackEvent('email_generated', 'success', 'email_created');
@@ -80,16 +109,45 @@ export default function Home() {
       
       // Special handling for rate limiting
       if (errorMessage.includes('429')) {
-        const rateLimitMessage = 'Rate limit reached. Please wait a moment before generating a new email.';
-        setError(rateLimitMessage);
-        toast({
-          title: "Rate limit reached",
-          description: "The email service is temporarily unavailable. Please wait a few minutes and try again.",
-          variant: "destructive",
-        });
-        trackEvent('email_generation', 'rate_limit', 'too_many_requests');
+        const currentRetryCount = retryCount + 1;
+        setRetryCount(currentRetryCount);
+        
+        // Limit retries to prevent infinite loops
+        if (currentRetryCount <= 3) {
+          // Fixed backoff delays: 2s, 5s, 10s as specified
+          const delays = [2000, 5000, 10000];
+          const delay = delays[currentRetryCount - 1] || 10000;
+          
+          setIsRetrying(true);
+          toast({
+            title: "Service busy",
+            description: `High traffic detected. Retrying in ${delay/1000} seconds... (${currentRetryCount}/3)`,
+            variant: "default",
+          });
+          trackEvent('email_generation', 'rate_limit', `retry_${currentRetryCount}`);
+          
+          // Auto-retry with proper backoff
+          setTimeout(() => {
+            setIsRetrying(false);
+            generateEmail(domain, true); // Bypass rate limit for retry
+          }, delay);
+          return; // Keep loading state active during retry
+        } else {
+          // Max retries reached - show helpful message and allow manual retry
+          setRetryCount(0); // Reset for next manual attempt
+          setIsRetrying(false);
+          setError(null); // Don't set permanent error
+          toast({
+            title: "Service temporarily unavailable",
+            description: "Please try again in a few minutes. The service is experiencing high traffic.",
+            variant: "default",
+          });
+          trackEvent('email_generation', 'rate_limit', 'max_retries_reached');
+        }
       } else {
         setError(errorMessage);
+        setRetryCount(0); // Reset retry count on other errors
+        setIsRetrying(false);
         toast({
           title: "Generation failed",
           description: errorMessage,
@@ -98,7 +156,10 @@ export default function Home() {
         trackEvent('email_generation', 'error', errorMessage);
       }
     } finally {
-      setLoading(false);
+      // Only set loading to false if not retrying
+      if (!isRetrying) {
+        setLoading(false);
+      }
     }
   };
 
@@ -108,8 +169,17 @@ export default function Home() {
       const availableDomains = await mailAPI.fetchDomains();
       setDomains(availableDomains);
       
-      // Generate initial email
-      await generateEmail();
+      // Check if user came from about page - bypass rate limiting for smooth UX
+      const urlParams = new URLSearchParams(window.location.search);
+      const fromAbout = urlParams.get('from') === 'about';
+      
+      // Generate initial email with appropriate rate limiting
+      await generateEmail(undefined, fromAbout);
+      
+      // Clean up URL parameter after use
+      if (fromAbout) {
+        window.history.replaceState({}, '', '/');
+      }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to initialize email service';
       setError(errorMessage);
@@ -127,8 +197,8 @@ export default function Home() {
     trackEvent('domain_selection', 'user_action', domain?.domain || 'random');
   };
 
-  const handleGenerateNew = () => {
-    generateEmail();
+  const handleGenerateNew = (bypassRateLimit?: boolean) => {
+    generateEmail(undefined, bypassRateLimit);
     setRefreshTrigger(prev => prev + 1);
   };
 
@@ -206,6 +276,7 @@ export default function Home() {
               email={currentEmail} 
               onExtendTime={handleExtendTime}
               onGenerateNew={handleGenerateNew}
+              isLoading={loading || isRetrying}
             />
 
             {/* Ad Placement */}

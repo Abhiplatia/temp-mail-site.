@@ -303,7 +303,7 @@ export default function About() {
               Create your free temporary email address now and start protecting your privacy online.
             </p>
             <Link 
-              href="/"
+              href="/?from=about"
               className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
               data-testid="button-get-started"
             >

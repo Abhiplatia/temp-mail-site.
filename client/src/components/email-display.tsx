@@ -6,10 +6,11 @@ import CountdownTimer from './countdown-timer';
 interface EmailDisplayProps {
   email: string;
   onExtendTime: () => void;
-  onGenerateNew: () => void;
+  onGenerateNew: (bypassRateLimit?: boolean) => void;
+  isLoading?: boolean;
 }
 
-export default function EmailDisplay({ email, onExtendTime, onGenerateNew }: EmailDisplayProps) {
+export default function EmailDisplay({ email, onExtendTime, onGenerateNew, isLoading = false }: EmailDisplayProps) {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
@@ -74,11 +75,12 @@ export default function EmailDisplay({ email, onExtendTime, onGenerateNew }: Ema
             <span>{copied ? 'Copied!' : 'Copy Email'}</span>
           </button>
           <button 
-            onClick={onGenerateNew}
-            className="bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:bg-secondary/80 transition-colors"
+            onClick={() => onGenerateNew(false)}
+            disabled={isLoading}
+            className="bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:bg-secondary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             data-testid="button-generate-fresh-mail"
           >
-            Generate Fresh New Mail
+            {isLoading ? 'Generating...' : 'Generate Fresh New Mail'}
           </button>
         </div>
       </div>
