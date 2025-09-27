@@ -44,7 +44,7 @@ export default function EmailDisplay({ email, onExtendTime, onGenerateNew }: Ema
     onExtendTime();
     toast({
       title: "Time extended",
-      description: "Email session extended by 5 minutes",
+      description: "Email has restart from 10 min",
     });
   };
 
