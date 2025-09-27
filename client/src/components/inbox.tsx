@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Inbox as InboxIcon, RefreshCw, AlertCircle, Mail, Paperclip } from 'lucide-react';
+import { Inbox as InboxIcon, RefreshCw, AlertCircle, Mail, Paperclip, Download, Eye, FileText, Image, FileArchive, FileVideo, FileAudio } from 'lucide-react';
 import { mailAPI, MessageSummary, MessageDetails } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 interface InboxProps {
   refreshTrigger: number;
@@ -77,6 +78,56 @@ export default function Inbox({ refreshTrigger }: InboxProps) {
 
   const truncateText = (text: string, maxLength: number) => {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
+
+  const getFileIcon = (contentType: string) => {
+    if (contentType.startsWith('image/')) return Image;
+    if (contentType.startsWith('video/')) return FileVideo;
+    if (contentType.startsWith('audio/')) return FileAudio;
+    if (contentType.includes('zip') || contentType.includes('archive')) return FileArchive;
+    return FileText;
+  };
+
+  const isPreviewable = (contentType: string) => {
+    return contentType.startsWith('image/') || 
+           contentType.startsWith('text/') || 
+           contentType === 'application/pdf';
+  };
+
+  const handleDownloadAttachment = async (attachmentUrl: string, filename: string) => {
+    try {
+      const response = await fetch(attachmentUrl);
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      toast({
+        title: "Download started",
+        description: `Downloading ${filename}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Download failed",
+        description: "Failed to download the attachment",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePreviewAttachment = (attachmentUrl: string, filename: string) => {
+    window.open(attachmentUrl, '_blank');
+    toast({
+      title: "Opening preview",
+      description: `Opening ${filename} in new tab`,
+    });
   };
 
   const hasUnreadMessages = messages.some(msg => !msg.seen);
@@ -200,14 +251,55 @@ export default function Inbox({ refreshTrigger }: InboxProps) {
                 </div>
                 {selectedMessage.hasAttachments && selectedMessage.attachments && (
                   <div className="mt-4 p-3 bg-muted/30 rounded-lg">
-                    <p className="text-sm font-medium text-foreground mb-2">Attachments:</p>
-                    {selectedMessage.attachments.map((attachment) => (
-                      <div key={attachment.id} className="flex items-center space-x-2 text-sm text-muted-foreground">
-                        <Paperclip className="w-4 h-4" />
-                        <span>{attachment.filename}</span>
-                        <span>({(attachment.size / 1024).toFixed(1)} KB)</span>
-                      </div>
-                    ))}
+                    <p className="text-sm font-medium text-foreground mb-3">Attachments:</p>
+                    <div className="space-y-2">
+                      {selectedMessage.attachments.map((attachment) => {
+                        const FileIcon = getFileIcon(attachment.contentType);
+                        const canPreview = isPreviewable(attachment.contentType);
+                        
+                        return (
+                          <div 
+                            key={attachment.id} 
+                            className="flex items-center justify-between p-2 bg-background/50 rounded-lg border border-border/50"
+                            data-testid={`attachment-${attachment.id}`}
+                          >
+                            <div className="flex items-center space-x-3 flex-1 min-w-0">
+                              <FileIcon className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-foreground truncate" title={attachment.filename}>
+                                  {attachment.filename}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {(attachment.size / 1024).toFixed(1)} KB • {attachment.contentType}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-1 flex-shrink-0">
+                              {canPreview && (
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() => handlePreviewAttachment(attachment.downloadUrl, attachment.filename)}
+                                  className="h-8 w-8 p-0"
+                                  data-testid={`button-preview-${attachment.id}`}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                </Button>
+                              )}
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleDownloadAttachment(attachment.downloadUrl, attachment.filename)}
+                                className="h-8 w-8 p-0"
+                                data-testid={`button-download-${attachment.id}`}
+                              >
+                                <Download className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>

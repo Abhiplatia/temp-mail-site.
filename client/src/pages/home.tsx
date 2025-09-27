@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Mail } from 'lucide-react';
-import { mailAPI } from '@/lib/mail-api';
+import { mailAPI, Domain } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
 import EmailDisplay from '@/components/email-display';
 import Inbox from '@/components/inbox';
 import AdBanner from '@/components/ad-banner';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { DomainSelector } from '@/components/domain-selector';
 import { trackEvent } from '@/lib/analytics';
 
 export default function Home() {
@@ -12,24 +14,49 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [domains, setDomains] = useState<Domain[]>([]);
+  const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
+  const [lastGenerationTime, setLastGenerationTime] = useState<number>(0);
   const { toast } = useToast();
 
-  const initializeEmail = async () => {
+  const generateEmail = async (domain?: Domain) => {
+    // Rate limiting: prevent rapid successive calls
+    const now = Date.now();
+    const timeSinceLastGeneration = now - lastGenerationTime;
+    const minInterval = 3000; // 3 seconds minimum between generations
+
+    if (timeSinceLastGeneration < minInterval && lastGenerationTime > 0) {
+      const waitTime = Math.ceil((minInterval - timeSinceLastGeneration) / 1000);
+      toast({
+        title: "Please wait",
+        description: `Wait ${waitTime} more seconds before generating a new email.`,
+        variant: "default",
+      });
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
+      setLastGenerationTime(now);
 
       // Track email generation attempt
       trackEvent('email_generation', 'user_action', 'generate_email');
 
-      // Fetch available domains
-      const domains = await mailAPI.fetchDomains();
-      if (domains.length === 0) {
+      // Use current domains or fetch them if not available
+      let availableDomains = domains;
+      if (availableDomains.length === 0) {
+        availableDomains = await mailAPI.fetchDomains();
+        setDomains(availableDomains);
+      }
+
+      if (availableDomains.length === 0) {
         throw new Error('No email domains are currently available');
       }
 
-      // Generate random email and password
-      const { email, password } = mailAPI.generateRandomEmail(domains);
+      // Generate email with selected domain or random
+      const domainToUse = domain || (selectedDomain === null ? undefined : selectedDomain);
+      const { email, password } = mailAPI.generateRandomEmail(availableDomains, domainToUse);
 
       // Create account
       await mailAPI.createAccount(email, password);
@@ -49,23 +76,58 @@ export default function Home() {
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to generate email';
-      setError(errorMessage);
       
-      // Track email generation failure
-      trackEvent('email_generation', 'error', errorMessage);
-      
-      toast({
-        title: "Generation failed",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      // Special handling for rate limiting
+      if (errorMessage.includes('429')) {
+        const rateLimitMessage = 'Rate limit reached. Please wait a moment before generating a new email.';
+        setError(rateLimitMessage);
+        toast({
+          title: "Rate limit reached",
+          description: "The email service is temporarily unavailable. Please wait a few minutes and try again.",
+          variant: "destructive",
+        });
+        trackEvent('email_generation', 'rate_limit', 'too_many_requests');
+      } else {
+        setError(errorMessage);
+        toast({
+          title: "Generation failed",
+          description: errorMessage,
+          variant: "destructive",
+        });
+        trackEvent('email_generation', 'error', errorMessage);
+      }
     } finally {
+      setLoading(false);
+    }
+  };
+
+  const initializeEmail = async () => {
+    try {
+      // Fetch available domains first
+      const availableDomains = await mailAPI.fetchDomains();
+      setDomains(availableDomains);
+      
+      // Generate initial email
+      await generateEmail();
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to initialize email service';
+      setError(errorMessage);
       setLoading(false);
     }
   };
 
   const handleExtendTime = () => {
     trackEvent('extend_time', 'user_action', 'extend_session');
+    setRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleDomainSelect = (domain: Domain | null) => {
+    setSelectedDomain(domain);
+    trackEvent('domain_selection', 'user_action', domain?.domain || 'random');
+  };
+
+  const handleGenerateNew = () => {
+    generateEmail();
     setRefreshTrigger(prev => prev + 1);
   };
 
@@ -91,8 +153,11 @@ export default function Home() {
                 QuickTempMail<span className="text-primary">.live</span>
               </h1>
             </div>
-            <div className="text-sm text-muted-foreground hidden sm:block">
-              Free • Anonymous • No Signup
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-muted-foreground hidden sm:block">
+                Free • Anonymous • No Signup
+              </div>
+              <ThemeToggle />
             </div>
           </div>
         </div>
@@ -134,6 +199,24 @@ export default function Home() {
               email={currentEmail} 
               onExtendTime={handleExtendTime}
             />
+
+            {/* Domain Selection */}
+            {domains.length > 0 && (
+              <div className="bg-card border border-border rounded-xl p-4 shadow-sm mb-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-medium text-foreground mb-1">Email Domain</h3>
+                    <p className="text-xs text-muted-foreground">Choose your preferred domain or generate a new email</p>
+                  </div>
+                  <DomainSelector
+                    domains={domains}
+                    selectedDomain={selectedDomain}
+                    onDomainSelect={handleDomainSelect}
+                    onGenerateNew={handleGenerateNew}
+                  />
+                </div>
+              </div>
+            )}
 
             {/* Ad Placement */}
             <AdBanner 

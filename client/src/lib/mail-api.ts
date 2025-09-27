@@ -220,7 +220,7 @@ class MailAPI {
     }
   }
 
-  generateRandomEmail(domains: Domain[]): { email: string; password: string } {
+  generateRandomEmail(domains: Domain[], selectedDomain?: Domain): { email: string; password: string } {
     const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
     const generateString = (length: number) => {
       let result = '';
@@ -232,10 +232,10 @@ class MailAPI {
 
     const username = generateString(8);
     const password = generateString(12);
-    const selectedDomain = domains[Math.floor(Math.random() * domains.length)];
+    const domain = selectedDomain || domains[Math.floor(Math.random() * domains.length)];
     
     return {
-      email: `${username}@${selectedDomain.domain}`,
+      email: `${username}@${domain.domain}`,
       password
     };
   }
