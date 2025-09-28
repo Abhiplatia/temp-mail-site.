@@ -5,7 +5,6 @@ import { mailAPI, Domain } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
 import EmailDisplay from '@/components/email-display';
 import Inbox from '@/components/inbox';
-import AdBanner from '@/components/ad-banner';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { DomainSelector } from '@/components/domain-selector';
 import { trackEvent } from '@/lib/analytics';
@@ -296,12 +295,6 @@ export default function Home() {
               isLoading={loading || isRetrying}
             />
 
-            {/* Ad Placement */}
-            <AdBanner 
-              format="horizontal" 
-              className="mb-8"
-              slot="1234567890"
-            />
 
             {/* Inbox Section */}
             <Inbox refreshTrigger={refreshTrigger} />
@@ -537,12 +530,6 @@ export default function Home() {
               </section>
             </div>
 
-            {/* Additional Ad */}
-            <AdBanner 
-              format="rectangle" 
-              className="mt-8"
-              slot="0987654321"
-            />
           </>
         )}
       </main>
