@@ -10,8 +10,9 @@ The site features comprehensive educational content with 7 in-depth articles (40
 
 **September 30, 2025:**
 - Added Educational Articles section with 7 comprehensive articles about disposable email technology
-- Integrated high-quality featured images for all articles with performance optimizations (lazy loading, async decoding, fetchPriority)
+- Integrated high-quality featured images for all articles with performance optimizations (lazy loading, async decoding)
 - Implemented professional article cards with hover effects and gradient overlays
+- Added Popular Articles section to home page displaying 4 featured articles with images in a 2x2 grid layout
 - Removed dark mode toggle from all pages (light mode only by user preference)
 - Updated contact information to single email: contact@quicktempmail.live
 - Made header "QuickTempMail.live" text clickable for home navigation
@@ -68,12 +69,18 @@ Design preference: Light mode only (no dark mode toggle).
   - The Future of Disposable Email Services
 - **Featured Images**: High-quality stock photos for each article with:
   - Lazy loading and async decoding for performance
-  - FetchPriority="high" for hero images
   - Motion-safe hover animations
   - Descriptive alt text for accessibility
 - **Article Cards**: Professional card design with image overlays, gradient effects, and hover scale animations
+- **Popular Articles Section**: Home page feature displaying 4 featured articles:
+  - 2x2 grid layout on desktop, single column on mobile
+  - Each card shows title, description, and image
+  - Images positioned on the right (desktop) or top (mobile)
+  - Hover effects with visual feedback
+  - Direct navigation to individual articles via hash links
+  - "View All Articles" link for full collection access
 - **SEO Optimization**: Dynamic page titles and meta descriptions for each article
-- **Navigation**: Accessible from home page promotional section and footer
+- **Navigation**: Accessible from home page popular articles section and footer
 
 ### Monitoring & Analytics  
 - **Google Analytics**: Integrated GA4 tracking for user behavior and conversion tracking
