@@ -1,10 +1,24 @@
 import express, { type Request, Response, NextFunction } from "express";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// Enable compression for all responses (gzip/brotli)
+app.use(compression());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Process-level error handlers to prevent crashes
+process.on('uncaughtException', (err) => {
+  console.error('[UNCAUGHT EXCEPTION]', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[UNHANDLED REJECTION]', reason, promise);
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -43,8 +57,8 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    console.error('[ERROR]', err.stack || err);
     res.status(status).json({ message });
-    throw err;
   });
 
   // importantly only setup vite in development and after

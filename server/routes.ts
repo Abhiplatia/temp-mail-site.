@@ -18,8 +18,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     
     if (fs.existsSync(htmlPath)) {
       try {
+        const stats = await fs.promises.stat(htmlPath);
+        const lastModified = stats.mtime.toUTCString();
+        const etag = `"${stats.mtime.getTime()}-${stats.size}"`;
+        
+        // Check If-None-Match for conditional requests
+        if (req.headers['if-none-match'] === etag) {
+          res.status(304).end();
+          return;
+        }
+        
         const content = await fs.promises.readFile(htmlPath, "utf-8");
-        res.set("Content-Type", "text/html").send(content);
+        // Add proper caching headers for better performance
+        res.set({
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=300, must-revalidate", // 5 minutes cache with revalidation
+          "ETag": etag,
+          "Last-Modified": lastModified
+        });
+        res.send(content);
       } catch (error) {
         next(error);
       }

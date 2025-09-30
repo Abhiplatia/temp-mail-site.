@@ -68,12 +68,20 @@ class MailAPI {
     try {
       const response = await fetch(`${API_BASE}/domains`);
       if (!response.ok) {
-        throw new Error(`Failed to fetch domains: ${response.status}`);
+        const error: any = new Error(`Failed to fetch domains: ${response.status}`);
+        error.status = response.status;
+        throw error;
       }
       const data = await response.json();
       return data['hydra:member'].filter((domain: Domain) => domain.isActive);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching domains:', error);
+      // Propagate status code for rate limit detection
+      if (error.status) {
+        const err: any = new Error('Unable to fetch available domains. Please try again.');
+        err.status = error.status;
+        throw err;
+      }
       throw new Error('Unable to fetch available domains. Please try again.');
     }
   }
@@ -211,7 +219,8 @@ class MailAPI {
         headers: {
           'Authorization': `Bearer ${this.authToken}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ seen: true })
       });
       
       if (!response.ok && response.status !== 200) {
