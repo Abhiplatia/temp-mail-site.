@@ -709,46 +709,61 @@ export default function Articles() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {articles.map((article) => (
-            <button
-              key={article.id}
-              onClick={() => {
-                if (article.externalUrl) {
-                  window.location.href = article.externalUrl;
-                } else {
-                  setSelectedArticle(article.id);
-                }
-              }}
-              className="text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
-              data-testid={`article-card-${article.id}`}
-            >
-              <div className="relative h-48 w-full overflow-hidden">
-                <img 
-                  src={article.featuredImage} 
-                  alt={`Featured image for article: ${article.title}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="flex items-center gap-2 text-xs text-white/90">
-                    <Clock className="w-3 h-3" />
-                    <span>{article.readTime}</span>
+          {articles.map((article) => {
+            const CardContent = (
+              <>
+                <div className="relative h-48 w-full overflow-hidden">
+                  <img 
+                    src={article.featuredImage} 
+                    alt={`Featured image for article: ${article.title}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="flex items-center gap-2 text-xs text-white/90">
+                      <Clock className="w-3 h-3" />
+                      <span>{article.readTime}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-2 line-clamp-2">
-                  {article.title}
-                </h3>
-                <div className="flex items-center gap-2 text-sm text-primary">
-                  <BookOpen className="w-4 h-4" />
-                  <span>Read Article</span>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-foreground mb-2 line-clamp-2">
+                    {article.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-sm text-primary">
+                    <BookOpen className="w-4 h-4" />
+                    <span>Read Article</span>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </>
+            );
+
+            if (article.externalUrl) {
+              return (
+                <a
+                  key={article.id}
+                  href={article.externalUrl}
+                  className="block text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
+                  data-testid={`article-card-${article.id}`}
+                >
+                  {CardContent}
+                </a>
+              );
+            }
+
+            return (
+              <button
+                key={article.id}
+                onClick={() => setSelectedArticle(article.id)}
+                className="text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
+                data-testid={`article-card-${article.id}`}
+              >
+                {CardContent}
+              </button>
+            );
+          })}
         </div>
 
         <div className="mt-12 text-center">
