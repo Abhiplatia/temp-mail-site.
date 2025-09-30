@@ -4,9 +4,22 @@
 
 QuickTempMail.live is a temporary email service that provides users with disposable email addresses that automatically expire after 10 minutes. The application allows users to generate random temporary email addresses, receive emails in real-time, and manage their inbox during the session lifetime. The service is designed for privacy-conscious users who need temporary email addresses for testing, registrations, or avoiding spam.
 
+The site features comprehensive educational content with 7 in-depth articles (400-800 words each) covering disposable email technology, privacy benefits, security considerations, and best practices.
+
+## Recent Changes
+
+**September 30, 2025:**
+- Added Educational Articles section with 7 comprehensive articles about disposable email technology
+- Removed dark mode toggle from all pages (light mode only by user preference)
+- Updated contact information to single email: contact@quicktempmail.live
+- Made header "QuickTempMail.live" text clickable for home navigation
+- Added custom SVG favicon matching the header Mail icon design
+- Fixed HTML structure issues and nested anchor tag warnings throughout the site
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Design preference: Light mode only (no dark mode toggle).
 
 ## System Architecture
 
@@ -17,6 +30,7 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with custom CSS variables for theming
 - **State Management**: TanStack Query for server state management and caching
 - **Form Handling**: React Hook Form with Zod validation schemas
+- **Pages**: Home, Articles (with 7 educational articles), Privacy Policy, Terms & Conditions, About Us, Contact Us, FAQ
 
 ### Backend Architecture  
 - **Runtime**: Node.js with Express.js framework
@@ -40,6 +54,18 @@ Preferred communication style: Simple, everyday language.
 - **Real-time Updates**: Polling mechanism for fetching new messages
 - **Message Management**: Full CRUD operations for email messages
 - **Attachment Support**: File attachment handling and download capabilities
+
+### Educational Content
+- **Articles Section**: 7 comprehensive articles (400-800 words each) covering:
+  - What is Disposable Temporary Email?
+  - The Tech Behind Disposable Email Addresses
+  - Privacy Benefits of Using Temporary Email Services
+  - When to Use (and Not Use) Temporary Email Addresses
+  - Temporary Email vs Email Aliases: Which Is Right for You?
+  - Security Considerations When Using Temporary Email
+  - The Future of Disposable Email Services
+- **SEO Optimization**: Dynamic page titles and meta descriptions for each article
+- **Navigation**: Accessible from home page promotional section and footer
 
 ### Monitoring & Analytics  
 - **Google Analytics**: Integrated GA4 tracking for user behavior and conversion tracking

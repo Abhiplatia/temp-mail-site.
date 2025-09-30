@@ -13,6 +13,7 @@ import Terms from "@/pages/terms";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import FAQ from "@/pages/faq";
+import Articles from "@/pages/articles";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/articles" component={Articles} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

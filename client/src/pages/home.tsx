@@ -528,6 +528,21 @@ export default function Home() {
                   </div>
                 </div>
               </section>
+
+              {/* Articles Section */}
+              <section>
+                <div className="bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-xl p-6 sm:p-8">
+                  <h3 className="text-xl font-bold text-foreground mb-3" data-testid="heading-articles-promo">
+                    Learn More About Disposable Email
+                  </h3>
+                  <p className="text-muted-foreground mb-4">
+                    Explore our comprehensive educational articles covering everything from the basics of temporary email to advanced privacy techniques and security best practices.
+                  </p>
+                  <Link href="/articles" className="inline-flex items-center gap-2 text-primary hover:underline font-semibold" data-testid="link-articles-main">
+                    Read Educational Articles →
+                  </Link>
+                </div>
+              </section>
             </div>
 
           </>
@@ -539,6 +554,9 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center space-y-4">
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <Link href="/articles" className="text-primary hover:underline" data-testid="link-articles">
+                Articles
+              </Link>
               <Link href="/privacy-policy" className="text-primary hover:underline" data-testid="link-privacy">
                 Privacy Policy
               </Link>
