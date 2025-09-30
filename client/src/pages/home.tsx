@@ -537,15 +537,44 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border bg-card/50 mt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-sm text-muted-foreground">
-            <p className="mb-2">© 2025 QuickTempMail.live - Free Temporary Email Service</p>
-            <p className="space-x-4">
-              <span>Privacy-focused</span>
-              <span>•</span>
-              <span>No data stored</span>
-              <span>•</span>
-              <span>Open source friendly</span>
-            </p>
+          <div className="text-center space-y-4">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <Link href="/privacy-policy">
+                <a className="text-primary hover:underline" data-testid="link-privacy">
+                  Privacy Policy
+                </a>
+              </Link>
+              <Link href="/terms">
+                <a className="text-primary hover:underline" data-testid="link-terms">
+                  Terms & Conditions
+                </a>
+              </Link>
+              <Link href="/about">
+                <a className="text-primary hover:underline" data-testid="link-about">
+                  About Us
+                </a>
+              </Link>
+              <Link href="/contact">
+                <a className="text-primary hover:underline" data-testid="link-contact">
+                  Contact Us
+                </a>
+              </Link>
+              <Link href="/faq">
+                <a className="text-primary hover:underline" data-testid="link-faq">
+                  FAQ
+                </a>
+              </Link>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              <p className="mb-2">© 2025 QuickTempMail.live - Free Temporary Email Service</p>
+              <p className="space-x-4">
+                <span>Privacy-focused</span>
+                <span>•</span>
+                <span>No data stored</span>
+                <span>•</span>
+                <span>Open source friendly</span>
+              </p>
+            </div>
           </div>
         </div>
       </footer>

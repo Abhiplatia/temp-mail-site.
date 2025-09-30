@@ -8,6 +8,11 @@ import { useEffect } from "react";
 import { initGA } from "./lib/analytics";
 import { useAnalytics } from "./hooks/use-analytics";
 import Home from "@/pages/home";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import Terms from "@/pages/terms";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
+import FAQ from "@/pages/faq";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +22,11 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/faq" component={FAQ} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
