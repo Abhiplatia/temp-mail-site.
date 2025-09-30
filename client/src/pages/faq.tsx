@@ -173,8 +173,8 @@ export default function FAQ() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Common Issues</h2>
             <div className="space-y-3">
               <FAQItem
-                question="Why am I getting a 'Service busy' error?"
-                answer="This error appears when there are too many requests in a short time (rate limiting). Wait 30 seconds before trying again. We implement rate limiting to prevent abuse and ensure service availability for all users."
+                question="Why is email generation taking longer than usual?"
+                answer="During high traffic periods, email generation may take a bit longer as our system automatically handles requests to ensure reliable service for all users. The page will continue loading and your email will be ready shortly."
               />
 
               <FAQItem

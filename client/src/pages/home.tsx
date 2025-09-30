@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Mail, Shield, Clock, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
 import { mailAPI, Domain } from '@/lib/mail-api';
@@ -53,25 +53,16 @@ export default function Home() {
   const [lastGenerationTime, setLastGenerationTime] = useState<number>(0);
   const [clickCount, setClickCount] = useState<number>(0);
   const [retryCount, setRetryCount] = useState<number>(0);
-  const [isRetrying, setIsRetrying] = useState<boolean>(false);
   const [lastAttemptTime, setLastAttemptTime] = useState<number>(0);
-  const [isBlocked, setIsBlocked] = useState<boolean>(false);
   const [location] = useLocation();
   const { toast } = useToast();
+  const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const initRetryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isRetryingRef = useRef(false);
 
-  const generateEmail = async (domain?: Domain, bypassRateLimit?: boolean) => {
-    // Prevent duplicate calls while already processing
-    if (loading || isRetrying) {
-      return;
-    }
-    
-    // If we're blocked due to persistent rate limiting, don't allow any attempts
-    if (isBlocked && !bypassRateLimit) {
-      toast({
-        title: "Service temporarily blocked",
-        description: "Please wait several minutes before trying again. The email service needs time to reset.",
-        variant: "destructive",
-      });
+  const generateEmail = async (domain?: Domain, bypassRateLimit?: boolean, internalRetryCount: number = 0) => {
+    // Prevent duplicate calls while already processing (only allow internal retries with bypass)
+    if (loading && !(isRetryingRef.current && bypassRateLimit)) {
       return;
     }
     
@@ -122,6 +113,8 @@ export default function Home() {
       }
     }
 
+    let willRetry = false;
+
     try {
       setLoading(true);
       setError(null);
@@ -155,6 +148,7 @@ export default function Home() {
 
       setCurrentEmail(email);
       setRetryCount(0); // Reset retry count on success
+      isRetryingRef.current = false; // Clear retry flag
       
       // Track successful email generation
       trackEvent('email_generated', 'success', 'email_created');
@@ -171,41 +165,35 @@ export default function Home() {
       const isRateLimit = errorMessage.includes('429') || errorMessage.toLowerCase().includes('rate') || errorMessage.toLowerCase().includes('limit');
       
       if (isRateLimit) {
-        // Activate blocking mechanism for persistent rate limiting
-        const currentRetryCount = retryCount + 1;
+        // Silently handle rate limiting with automatic retry
+        const currentRetryCount = internalRetryCount + 1;
         setRetryCount(currentRetryCount);
         
-        // Block further attempts after 2 rate limit errors
-        if (currentRetryCount >= 2) {
-          setIsBlocked(true);
-          // Unblock after 5 minutes
-          setTimeout(() => {
-            setIsBlocked(false);
-            setRetryCount(0);
-          }, 300000); // 5 minutes
+        // Implement exponential backoff for retries (max 5 attempts)
+        if (currentRetryCount <= 5) {
+          willRetry = true;
+          isRetryingRef.current = true;
           
-          toast({
-            title: "Service blocked temporarily",
-            description: "Too many rate limit errors. Please wait 5 minutes before trying again.",
-            variant: "destructive",
-          });
-          trackEvent('email_generation', 'rate_limit', 'service_blocked');
+          // Exponential backoff: 2s, 4s, 8s, 16s, 32s
+          const backoffDelay = Math.min(2000 * Math.pow(2, currentRetryCount - 1), 32000);
+          
+          trackEvent('email_generation', 'auto_retry', `attempt_${currentRetryCount}`);
+          
+          // Auto-retry after backoff delay
+          retryTimeoutRef.current = setTimeout(async () => {
+            await generateEmail(domain, true, currentRetryCount); // bypass rate limit check for retry
+          }, backoffDelay);
         } else {
-          toast({
-            title: "Service busy",
-            description: "The email service is experiencing high traffic. Please wait a moment and try again manually.",
-            variant: "default",
-          });
-          trackEvent('email_generation', 'rate_limit', `attempt_${currentRetryCount}`);
+          // After 5 failed attempts, reset and show generic error (not rate limit specific)
+          setRetryCount(0);
+          isRetryingRef.current = false;
+          setError('Unable to generate email at this time. Please refresh the page and try again.');
+          trackEvent('email_generation', 'max_retries_reached', 'failed');
         }
-        
-        // NO AUTO-RETRY for rate limiting - user must manually retry
-        setIsRetrying(false);
-        setRetryCount(currentRetryCount);
       } else {
         // Other errors - don't block but show error
         setRetryCount(0);
-        setIsRetrying(false);
+        isRetryingRef.current = false;
         setError(errorMessage);
         toast({
           title: "Generation failed",
@@ -216,17 +204,39 @@ export default function Home() {
       }
     } finally {
       // Only set loading to false if not retrying
-      if (!isRetrying) {
+      if (!willRetry) {
         setLoading(false);
       }
     }
   };
 
-  const initializeEmail = async () => {
+  const initializeEmail = async (retryAttempt: number = 0) => {
+    // Set loading true to show spinner during initialization
+    if (retryAttempt === 0) {
+      setLoading(true);
+    }
+    
     try {
-      // Fetch available domains first
-      const availableDomains = await mailAPI.fetchDomains();
-      setDomains(availableDomains);
+      // Fetch available domains with retry logic
+      let availableDomains: Domain[] = [];
+      try {
+        availableDomains = await mailAPI.fetchDomains();
+        setDomains(availableDomains);
+      } catch (domainError) {
+        // If fetching domains fails due to rate limit, retry with backoff
+        const errorMessage = domainError instanceof Error ? domainError.message : '';
+        const isRateLimit = errorMessage.includes('429') || errorMessage.toLowerCase().includes('rate');
+        
+        if (isRateLimit && retryAttempt < 5) {
+          const backoffDelay = Math.min(2000 * Math.pow(2, retryAttempt), 32000);
+          initRetryTimeoutRef.current = setTimeout(() => {
+            initializeEmail(retryAttempt + 1);
+          }, backoffDelay);
+          return; // Keep loading state during retry
+        } else {
+          throw domainError; // Re-throw if not rate limit or max retries reached
+        }
+      }
       
       // Check if user came from about page - bypass rate limiting for smooth UX
       const urlParams = new URLSearchParams(window.location.search);
@@ -267,6 +277,17 @@ export default function Home() {
 
   useEffect(() => {
     initializeEmail();
+    
+    // Cleanup on unmount
+    return () => {
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+      }
+      if (initRetryTimeoutRef.current) {
+        clearTimeout(initRetryTimeoutRef.current);
+      }
+      isRetryingRef.current = false;
+    };
   }, []);
 
   return (
@@ -326,7 +347,7 @@ export default function Home() {
               email={currentEmail} 
               onExtendTime={handleExtendTime}
               onGenerateNew={handleGenerateNew}
-              isLoading={loading || isRetrying}
+              isLoading={loading || isRetryingRef.current}
             />
 
 

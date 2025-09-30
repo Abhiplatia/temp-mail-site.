@@ -177,7 +177,7 @@ export default function Contact() {
               <h3 className="font-semibold text-foreground mb-3">Before contacting support, try these:</h3>
               <ul className="list-disc pl-6 space-y-2 text-sm">
                 <li><strong>Email not receiving:</strong> Wait a few minutes - some emails take time to arrive. Check if the sender supports temporary email domains.</li>
-                <li><strong>"Service busy" error:</strong> Wait 30 seconds before trying again. We have rate limits to prevent abuse.</li>
+                <li><strong>Email taking long to generate:</strong> During busy periods, our system automatically manages high traffic. Your email will be ready shortly - just keep the page loading.</li>
                 <li><strong>Session expired:</strong> Sessions last 10 minutes. You can extend once for an additional 10 minutes. After expiration, data cannot be recovered.</li>
                 <li><strong>Page not loading:</strong> Try refreshing the page, clearing your browser cache, or using a different browser.</li>
                 <li><strong>Email disappeared:</strong> Emails are automatically deleted after session expiration. This is by design for privacy protection.</li>
