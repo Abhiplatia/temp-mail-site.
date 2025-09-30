@@ -2,10 +2,20 @@ import { Link } from 'wouter';
 import { ArrowLeft, Clock, BookOpen } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Import featured images
+import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.jpg';
+import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.jpg';
+import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.jpg';
+import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.jpg';
+import featuredImage5 from '@assets/stock_images/comparison_options_s_b446eba5.jpg';
+import featuredImage6 from '@assets/stock_images/cybersecurity_lock_p_932f8acf.jpg';
+import featuredImage7 from '@assets/stock_images/future_technology_in_01c04159.jpg';
+
 interface Article {
   id: string;
   title: string;
   readTime: string;
+  featuredImage: string;
   content: JSX.Element;
 }
 
@@ -14,6 +24,7 @@ const articles: Article[] = [
     id: "what-is-disposable-temporary-email",
     title: "What is Disposable Temporary Email?",
     readTime: "5 min read",
+    featuredImage: featuredImage1,
     content: (
       <div className="space-y-4">
         <p>
@@ -57,6 +68,7 @@ const articles: Article[] = [
     id: "tech-behind-disposable-email",
     title: "The Tech Behind Disposable Email Addresses",
     readTime: "6 min read",
+    featuredImage: featuredImage2,
     content: (
       <div className="space-y-4">
         <p>
@@ -108,6 +120,7 @@ const articles: Article[] = [
     id: "privacy-benefits-temporary-email",
     title: "Privacy Benefits of Using Temporary Email Services",
     readTime: "5 min read",
+    featuredImage: featuredImage3,
     content: (
       <div className="space-y-4">
         <p>
@@ -160,6 +173,7 @@ const articles: Article[] = [
     id: "when-to-use-temporary-email",
     title: "When to Use (and Not Use) Temporary Email Addresses",
     readTime: "6 min read",
+    featuredImage: featuredImage4,
     content: (
       <div className="space-y-4">
         <p>
@@ -222,6 +236,7 @@ const articles: Article[] = [
     id: "temporary-email-vs-email-aliases",
     title: "Temporary Email vs Email Aliases: Which Is Right for You?",
     readTime: "5 min read",
+    featuredImage: featuredImage5,
     content: (
       <div className="space-y-4">
         <p>
@@ -282,6 +297,7 @@ const articles: Article[] = [
     id: "security-considerations-temp-email",
     title: "Security Considerations When Using Temporary Email",
     readTime: "6 min read",
+    featuredImage: featuredImage6,
     content: (
       <div className="space-y-4">
         <p>
@@ -350,6 +366,7 @@ const articles: Article[] = [
     id: "future-of-disposable-email",
     title: "The Future of Disposable Email Services",
     readTime: "5 min read",
+    featuredImage: featuredImage7,
     content: (
       <div className="space-y-4">
         <p>
@@ -475,6 +492,15 @@ export default function Articles() {
             {article.title}
           </h1>
           
+          <div className="mb-8 rounded-xl overflow-hidden">
+            <img 
+              src={article.featuredImage} 
+              alt={`Featured image for article: ${article.title}`}
+              fetchPriority="high"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+          
           <article className="prose prose-lg max-w-none" data-testid="article-content">
             <div className="text-muted-foreground leading-relaxed">
               {article.content}
@@ -519,21 +545,32 @@ export default function Articles() {
             <button
               key={article.id}
               onClick={() => setSelectedArticle(article.id)}
-              className="text-left bg-card border border-border rounded-lg p-6 hover:shadow-lg hover:border-primary/50 transition-all"
+              className="text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
               data-testid={`article-card-${article.id}`}
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <BookOpen className="w-6 h-6 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {article.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Clock className="w-4 h-4" />
+              <div className="relative h-48 w-full overflow-hidden">
+                <img 
+                  src={article.featuredImage} 
+                  alt={`Featured image for article: ${article.title}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <div className="flex items-center gap-2 text-xs text-white/90">
+                    <Clock className="w-3 h-3" />
                     <span>{article.readTime}</span>
                   </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-foreground mb-2 line-clamp-2">
+                  {article.title}
+                </h3>
+                <div className="flex items-center gap-2 text-sm text-primary">
+                  <BookOpen className="w-4 h-4" />
+                  <span>Read Article</span>
                 </div>
               </div>
             </button>
