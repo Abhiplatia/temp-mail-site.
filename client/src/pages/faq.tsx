@@ -1,6 +1,5 @@
 import { Link } from 'wouter';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
 
 interface FAQItemProps {
@@ -46,7 +45,6 @@ export default function FAQ() {
                 <span className="font-semibold">Back to Home</span>
               </a>
             </Link>
-            <ThemeToggle />
           </div>
         </div>
       </header>

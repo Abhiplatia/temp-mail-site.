@@ -241,14 +241,14 @@ export default function Home() {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity" data-testid="link-header-home">
               <div className="w-8 h-8 email-gradient rounded-lg flex items-center justify-center">
                 <Mail className="w-5 h-5 text-primary-foreground" />
               </div>
               <h1 className="text-xl font-bold text-foreground">
                 QuickTempMail<span className="text-primary">.live</span>
               </h1>
-            </div>
+            </Link>
             <div className="text-sm text-muted-foreground hidden sm:block">
               Free • Anonymous • No Signup
             </div>
@@ -539,30 +539,20 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center space-y-4">
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-              <Link href="/privacy-policy">
-                <a className="text-primary hover:underline" data-testid="link-privacy">
-                  Privacy Policy
-                </a>
+              <Link href="/privacy-policy" className="text-primary hover:underline" data-testid="link-privacy">
+                Privacy Policy
               </Link>
-              <Link href="/terms">
-                <a className="text-primary hover:underline" data-testid="link-terms">
-                  Terms & Conditions
-                </a>
+              <Link href="/terms" className="text-primary hover:underline" data-testid="link-terms">
+                Terms & Conditions
               </Link>
-              <Link href="/about">
-                <a className="text-primary hover:underline" data-testid="link-about">
-                  About Us
-                </a>
+              <Link href="/about" className="text-primary hover:underline" data-testid="link-about">
+                About Us
               </Link>
-              <Link href="/contact">
-                <a className="text-primary hover:underline" data-testid="link-contact">
-                  Contact Us
-                </a>
+              <Link href="/contact" className="text-primary hover:underline" data-testid="link-contact">
+                Contact Us
               </Link>
-              <Link href="/faq">
-                <a className="text-primary hover:underline" data-testid="link-faq">
-                  FAQ
-                </a>
+              <Link href="/faq" className="text-primary hover:underline" data-testid="link-faq">
+                FAQ
               </Link>
             </div>
             <div className="text-sm text-muted-foreground">

@@ -1,11 +1,10 @@
 import { Link } from 'wouter';
 import { ArrowLeft } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function Terms() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-t border-border bg-card/50 sticky top-0 z-50 backdrop-blur">
+      <header className="border-b border-border bg-card/50 sticky top-0 z-50 backdrop-blur">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/">
@@ -14,7 +13,6 @@ export default function Terms() {
                 <span className="font-semibold">Back to Home</span>
               </a>
             </Link>
-            <ThemeToggle />
           </div>
         </div>
       </header>

@@ -1,6 +1,5 @@
 import { Link } from 'wouter';
 import { ArrowLeft, Shield, Zap, Clock, Lock, Globe, Heart } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function About() {
   return (
@@ -14,7 +13,6 @@ export default function About() {
                 <span className="font-semibold">Back to Home</span>
               </a>
             </Link>
-            <ThemeToggle />
           </div>
         </div>
       </header>

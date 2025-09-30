@@ -1,6 +1,5 @@
 import { Link } from 'wouter';
-import { Home, ArrowLeft } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
+import { ArrowLeft } from 'lucide-react';
 
 export default function PrivacyPolicy() {
   return (
@@ -14,7 +13,6 @@ export default function PrivacyPolicy() {
                 <span className="font-semibold">Back to Home</span>
               </a>
             </Link>
-            <ThemeToggle />
           </div>
         </div>
       </header>

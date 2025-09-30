@@ -1,6 +1,5 @@
 import { Link } from 'wouter';
 import { ArrowLeft, Mail, MessageSquare, Bug, Lightbulb, HelpCircle } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function Contact() {
   return (
@@ -14,7 +13,6 @@ export default function Contact() {
                 <span className="font-semibold">Back to Home</span>
               </a>
             </Link>
-            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -97,36 +95,17 @@ export default function Contact() {
 
               <div className="space-y-4">
                 <div>
-                  <p className="font-semibold text-foreground mb-2">General Inquiries:</p>
+                  <p className="font-semibold text-foreground mb-2">For All Inquiries:</p>
                   <a 
                     href="mailto:contact@quicktempmail.live" 
                     className="text-primary hover:underline text-lg"
-                    data-testid="link-email-general"
+                    data-testid="link-email-contact"
                   >
                     contact@quicktempmail.live
                   </a>
-                </div>
-
-                <div>
-                  <p className="font-semibold text-foreground mb-2">Technical Support:</p>
-                  <a 
-                    href="mailto:support@quicktempmail.live" 
-                    className="text-primary hover:underline text-lg"
-                    data-testid="link-email-support"
-                  >
-                    support@quicktempmail.live
-                  </a>
-                </div>
-
-                <div>
-                  <p className="font-semibold text-foreground mb-2">Bug Reports & Feature Requests:</p>
-                  <a 
-                    href="mailto:feedback@quicktempmail.live" 
-                    className="text-primary hover:underline text-lg"
-                    data-testid="link-email-feedback"
-                  >
-                    feedback@quicktempmail.live
-                  </a>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    General questions, technical support, bug reports, and feature requests
+                  </p>
                 </div>
               </div>
             </div>
