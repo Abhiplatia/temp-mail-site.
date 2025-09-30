@@ -662,69 +662,28 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-border bg-card/50 mt-16">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            {/* Use Cases Articles */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Use Cases</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/best-ways-use-temporary-email.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-best-ways">Best Ways to Use Temp Mail</a></li>
-                <li><a href="/temp-mail-social-media-verification.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-social-media">Social Media Verification</a></li>
-                <li><a href="/temp-mail-chatgpt-ai-tools.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-chatgpt">ChatGPT & AI Tools</a></li>
-                <li><a href="/temp-mail-online-shopping.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-shopping">Online Shopping</a></li>
-                <li><a href="/temp-mail-gaming-accounts.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-gaming">Gaming Accounts</a></li>
-                <li><a href="/students-temp-mail-free-trials.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-students">Student Free Trials</a></li>
-              </ul>
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center space-y-4">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <Link href="/articles" className="text-primary hover:underline" data-testid="link-articles">
+                Articles
+              </Link>
+              <Link href="/privacy-policy" className="text-primary hover:underline" data-testid="link-privacy">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-primary hover:underline" data-testid="link-terms">
+                Terms & Conditions
+              </Link>
+              <Link href="/about" className="text-primary hover:underline" data-testid="link-about">
+                About Us
+              </Link>
+              <Link href="/contact" className="text-primary hover:underline" data-testid="link-contact">
+                Contact Us
+              </Link>
+              <Link href="/faq" className="text-primary hover:underline" data-testid="link-faq">
+                FAQ
+              </Link>
             </div>
-
-            {/* Security & Privacy Articles */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Security & Privacy</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/is-temporary-email-safe.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-safe">Is Temp Mail Safe?</a></li>
-                <li><a href="/temp-mail-spam-hacker-protection.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-spam-protection">Spam & Hacker Protection</a></li>
-                <li><a href="/personal-email-privacy-risks.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-privacy-risks">Personal Email Risks</a></li>
-                <li><a href="/top-10-risks-sharing-real-email.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-top-10-risks">Top 10 Email Risks</a></li>
-                <li><a href="/temp-mail-vs-vpn-privacy.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-vs-vpn">Temp Mail vs VPN</a></li>
-              </ul>
-            </div>
-
-            {/* Comparisons & Guides */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Guides & Comparisons</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/top-5-free-temporary-email-services.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-top-5">Top 5 Temp Mail Services</a></li>
-                <li><a href="/temp-mail-vs-gmail-aliases.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-gmail-aliases">Temp Mail vs Gmail Aliases</a></li>
-                <li><a href="/create-temp-mail-10-seconds.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-10-seconds">Create Temp Mail in 10s</a></li>
-                <li><a href="/bypass-email-verification-temp-mail.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-bypass">Bypass Email Verification</a></li>
-                <li><a href="/why-temp-emails-expire-save-messages.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-expire">Why Emails Expire</a></li>
-                <li><a href="/troubleshooting-email-not-receiving.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-troubleshooting">Troubleshooting Guide</a></li>
-              </ul>
-            </div>
-
-            {/* Trends & Insights */}
-            <div>
-              <h4 className="font-semibold text-foreground mb-4">Trends & Insights</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/why-disposable-email-popular-worldwide.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-popularity">Global Popularity</a></li>
-                <li><a href="/future-temporary-email-2030.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-future">Future of Temp Mail 2030</a></li>
-                <li><a href="/why-companies-hate-temp-mail.html" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-article-companies-hate">Why Companies Hate It</a></li>
-                <li><Link href="/articles" className="text-primary hover:underline font-semibold" data-testid="link-articles-all">View All Articles →</Link></li>
-              </ul>
-              <div className="mt-6">
-                <h4 className="font-semibold text-foreground mb-4">Company</h4>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">Privacy Policy</Link></li>
-                  <li><Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">Terms & Conditions</Link></li>
-                  <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
-                  <li><Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Us</Link></li>
-                  <li><Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-border pt-6 text-center">
             <div className="text-sm text-muted-foreground">
               <p className="mb-2">© 2025 QuickTempMail.live - Free Temporary Email Service</p>
               <p className="space-x-4">

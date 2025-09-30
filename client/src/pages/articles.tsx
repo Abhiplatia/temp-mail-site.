@@ -11,12 +11,35 @@ import featuredImage5 from '@assets/stock_images/comparison_options_s_b446eba5.j
 import featuredImage6 from '@assets/stock_images/cybersecurity_lock_p_932f8acf.jpg';
 import featuredImage7 from '@assets/stock_images/future_technology_in_01c04159.jpg';
 
+// New article images
+import featuredImage8 from '@assets/stock_images/business_conflict_co_7a3513d8.jpg';
+import featuredImage9 from '@assets/stock_images/social_media_apps_on_a1c3578d.jpg';
+import featuredImage10 from '@assets/stock_images/artificial_intellige_aca87dd0.jpg';
+import featuredImage11 from '@assets/stock_images/online_shopping_ecom_2b08319c.jpg';
+import featuredImage12 from '@assets/stock_images/gaming_setup_compute_4b33626b.jpg';
+import featuredImage13 from '@assets/stock_images/students_studying_la_0fede227.jpg';
+import featuredImage14 from '@assets/stock_images/cyber_security_shiel_45e4349a.jpg';
+import featuredImage15 from '@assets/stock_images/spam_emails_hacker_a_2b5f36e5.jpg';
+import featuredImage16 from '@assets/stock_images/email_comparison_vs__805d8faa.jpg';
+import featuredImage17 from '@assets/stock_images/step_by_step_guide_t_4aa1741e.jpg';
+import featuredImage18 from '@assets/stock_images/email_verification_c_45093681.jpg';
+import featuredImage19 from '@assets/stock_images/vpn_network_connecti_3cc92aae.jpg';
+import featuredImage20 from '@assets/stock_images/world_map_global_int_e2f47143.jpg';
+import featuredImage21 from '@assets/stock_images/comparison_chart_ser_79046821.jpg';
+import featuredImage22 from '@assets/stock_images/digital_risk_warning_4cb2dda7.jpg';
+import featuredImage23 from '@assets/stock_images/future_technology_in_84839f92.jpg';
+import featuredImage24 from '@assets/stock_images/person_using_laptop__0b93c5c6.jpg';
+import featuredImage25 from '@assets/stock_images/privacy_protection_p_a31f1fcc.jpg';
+import featuredImage26 from '@assets/stock_images/timer_clock_expirati_ad1b5d14.jpg';
+import featuredImage27 from '@assets/stock_images/troubleshooting_prob_dbf40624.jpg';
+
 interface Article {
   id: string;
   title: string;
   readTime: string;
   featuredImage: string;
-  content: JSX.Element;
+  content?: JSX.Element;
+  externalUrl?: string;
 }
 
 const articles: Article[] = [
@@ -432,6 +455,146 @@ const articles: Article[] = [
         </p>
       </div>
     )
+  },
+  {
+    id: "best-ways-use-temporary-email",
+    title: "Best Ways to Use Temporary Email 2025",
+    readTime: "10 min read",
+    featuredImage: featuredImage8,
+    externalUrl: "/best-ways-use-temporary-email.html"
+  },
+  {
+    id: "temp-mail-social-media-verification",
+    title: "Temp Mail for Facebook, Instagram, Twitter Verification",
+    readTime: "9 min read",
+    featuredImage: featuredImage9,
+    externalUrl: "/temp-mail-social-media-verification.html"
+  },
+  {
+    id: "temp-mail-chatgpt-ai-tools",
+    title: "Temporary Email for ChatGPT & AI Tools",
+    readTime: "9 min read",
+    featuredImage: featuredImage10,
+    externalUrl: "/temp-mail-chatgpt-ai-tools.html"
+  },
+  {
+    id: "temp-mail-online-shopping",
+    title: "Temp Mail for Online Shopping – Pros and Cons",
+    readTime: "9 min read",
+    featuredImage: featuredImage11,
+    externalUrl: "/temp-mail-online-shopping.html"
+  },
+  {
+    id: "temp-mail-gaming-accounts",
+    title: "Disposable Email for Gaming Accounts",
+    readTime: "9 min read",
+    featuredImage: featuredImage12,
+    externalUrl: "/temp-mail-gaming-accounts.html"
+  },
+  {
+    id: "students-temp-mail-free-trials",
+    title: "How Students Use Temp Mail for Free Trials",
+    readTime: "9 min read",
+    featuredImage: featuredImage13,
+    externalUrl: "/students-temp-mail-free-trials.html"
+  },
+  {
+    id: "is-temporary-email-safe",
+    title: "Is Temporary Email Safe? Myths vs Facts",
+    readTime: "10 min read",
+    featuredImage: featuredImage14,
+    externalUrl: "/is-temporary-email-safe.html"
+  },
+  {
+    id: "temp-mail-spam-hacker-protection",
+    title: "How Temp Mail Protects from Spam & Hackers",
+    readTime: "9 min read",
+    featuredImage: featuredImage15,
+    externalUrl: "/temp-mail-spam-hacker-protection.html"
+  },
+  {
+    id: "personal-email-privacy-risks",
+    title: "Why You Shouldn't Use Personal Email Everywhere",
+    readTime: "9 min read",
+    featuredImage: featuredImage25,
+    externalUrl: "/personal-email-privacy-risks.html"
+  },
+  {
+    id: "top-10-risks-sharing-real-email",
+    title: "Top 10 Risks of Sharing Your Real Email Online",
+    readTime: "10 min read",
+    featuredImage: featuredImage17,
+    externalUrl: "/top-10-risks-sharing-real-email.html"
+  },
+  {
+    id: "temp-mail-vs-vpn-privacy",
+    title: "Temp Mail vs VPN - Privacy Differences",
+    readTime: "9 min read",
+    featuredImage: featuredImage19,
+    externalUrl: "/temp-mail-vs-vpn-privacy.html"
+  },
+  {
+    id: "top-5-free-temporary-email-services",
+    title: "Top 5 Free Temporary Email Services 2025",
+    readTime: "10 min read",
+    featuredImage: featuredImage21,
+    externalUrl: "/top-5-free-temporary-email-services.html"
+  },
+  {
+    id: "temp-mail-vs-gmail-aliases",
+    title: "Temp Mail vs Gmail Aliases Comparison",
+    readTime: "9 min read",
+    featuredImage: featuredImage16,
+    externalUrl: "/temp-mail-vs-gmail-aliases.html"
+  },
+  {
+    id: "create-temp-mail-10-seconds",
+    title: "Step-by-Step: Creating Temp Mail in 10 Seconds",
+    readTime: "8 min read",
+    featuredImage: featuredImage24,
+    externalUrl: "/create-temp-mail-10-seconds.html"
+  },
+  {
+    id: "bypass-email-verification-temp-mail",
+    title: "How to Bypass Email Verification with Temp Mail",
+    readTime: "9 min read",
+    featuredImage: featuredImage18,
+    externalUrl: "/bypass-email-verification-temp-mail.html"
+  },
+  {
+    id: "why-temp-emails-expire-save-messages",
+    title: "Why Temporary Emails Expire & How to Save Messages",
+    readTime: "9 min read",
+    featuredImage: featuredImage26,
+    externalUrl: "/why-temp-emails-expire-save-messages.html"
+  },
+  {
+    id: "troubleshooting-email-not-receiving",
+    title: "Troubleshooting: Why Am I Not Receiving Emails?",
+    readTime: "9 min read",
+    featuredImage: featuredImage27,
+    externalUrl: "/troubleshooting-email-not-receiving.html"
+  },
+  {
+    id: "why-disposable-email-popular-worldwide",
+    title: "Why Disposable Email is Popular Worldwide",
+    readTime: "10 min read",
+    featuredImage: featuredImage20,
+    externalUrl: "/why-disposable-email-popular-worldwide.html"
+  },
+  {
+    id: "future-temporary-email-2030",
+    title: "Future of Temporary Email - 2030 Predictions",
+    readTime: "10 min read",
+    featuredImage: featuredImage23,
+    externalUrl: "/future-temporary-email-2030.html"
+  },
+  {
+    id: "why-companies-hate-temp-mail",
+    title: "Why Companies Hate Temp Mail (But Users Love It)",
+    readTime: "9 min read",
+    featuredImage: featuredImage22,
+    externalUrl: "/why-companies-hate-temp-mail.html"
   }
 ];
 
@@ -442,6 +605,12 @@ export default function Articles() {
   
   useEffect(() => {
     if (article) {
+      // If article has external URL, redirect immediately
+      if (article.externalUrl) {
+        window.location.href = article.externalUrl;
+        return;
+      }
+      
       document.title = `${article.title} | QuickTempMail.live`;
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
@@ -543,7 +712,13 @@ export default function Articles() {
           {articles.map((article) => (
             <button
               key={article.id}
-              onClick={() => setSelectedArticle(article.id)}
+              onClick={() => {
+                if (article.externalUrl) {
+                  window.location.href = article.externalUrl;
+                } else {
+                  setSelectedArticle(article.id);
+                }
+              }}
               className="text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
               data-testid={`article-card-${article.id}`}
             >
