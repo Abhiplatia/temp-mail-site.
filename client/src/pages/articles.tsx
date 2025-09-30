@@ -741,10 +741,15 @@ export default function Articles() {
             );
 
             if (article.externalUrl) {
+              const externalUrl = article.externalUrl;
               return (
                 <a
                   key={article.id}
-                  href={article.externalUrl}
+                  href={externalUrl}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = externalUrl;
+                  }}
                   className="block text-left bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group"
                   data-testid={`article-card-${article.id}`}
                 >
