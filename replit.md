@@ -18,6 +18,11 @@ The site features comprehensive educational content with 7 in-depth articles (40
 - Made header "QuickTempMail.live" text clickable for home navigation
 - Added custom SVG favicon matching the header Mail icon design
 - Fixed HTML structure issues and nested anchor tag warnings throughout the site
+- **Critical Production Fix**: Implemented automatic retry with exponential backoff (2s, 4s, 8s, 16s, 32s) for Mail.tm API rate limits (HTTP 429)
+- **Silent Error Handling**: Users never see "Service busy" errors; retries happen automatically in background for smooth long-term operation
+- **Memory Leak Prevention**: Added proper timeout cleanup on unmount for both retry and initialization timeouts
+- **Loading State Optimization**: Maintained loading spinner during retries for better UX
+- **Concurrency Protection**: Tightened entry guards to prevent overlapping API attempts during scheduled retries
 
 ## User Preferences
 
