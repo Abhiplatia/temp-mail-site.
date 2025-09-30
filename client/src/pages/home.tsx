@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Mail, Shield, Clock, Zap, CheckCircle } from 'lucide-react';
+import { Mail, Shield, Clock, Zap, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
 import { mailAPI, Domain } from '@/lib/mail-api';
 import { useToast } from '@/hooks/use-toast';
@@ -8,6 +8,40 @@ import Inbox from '@/components/inbox';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { DomainSelector } from '@/components/domain-selector';
 import { trackEvent } from '@/lib/analytics';
+
+// Import featured images for popular articles
+import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.jpg';
+import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.jpg';
+import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.jpg';
+import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.jpg';
+
+// Popular articles data
+const popularArticles = [
+  {
+    id: "what-is-disposable-temporary-email",
+    title: "What is Disposable Temporary Email?",
+    description: "Learn about disposable email addresses, how they work, and why they're essential for protecting your privacy online.",
+    image: featuredImage1,
+  },
+  {
+    id: "tech-behind-disposable-email",
+    title: "The Tech Behind Disposable Email Addresses",
+    description: "Discover the technology and protocols that power temporary email services and enable instant, anonymous communication.",
+    image: featuredImage2,
+  },
+  {
+    id: "privacy-benefits-temporary-email",
+    title: "Privacy Benefits of Using Temporary Email Services",
+    description: "Understand how temporary email addresses protect your data, break tracking chains, and safeguard against breaches.",
+    image: featuredImage3,
+  },
+  {
+    id: "when-to-use-temporary-email",
+    title: "When to Use (and Not Use) Temporary Email Addresses",
+    description: "A comprehensive guide to choosing the right situations for disposable email and when to stick with permanent addresses.",
+    image: featuredImage4,
+  },
+];
 
 export default function Home() {
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
@@ -318,6 +352,62 @@ export default function Home() {
                     or download files. QuickTempMail.live is the most advanced temporary email service that helps you avoid 
                     spam and protect your privacy.
                   </p>
+                </div>
+              </section>
+
+              {/* Popular Articles Section */}
+              <section>
+                <div className="text-center mb-8">
+                  <h2 
+                    className="text-2xl sm:text-3xl font-bold text-foreground mb-4"
+                    data-testid="heading-popular-articles"
+                  >
+                    Popular Articles
+                  </h2>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {popularArticles.map((article) => (
+                    <Link 
+                      key={article.id}
+                      href={`/articles#${article.id}`}
+                      className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg hover:border-primary/50 transition-all group flex flex-col sm:flex-row"
+                      data-testid={`article-link-${article.id}`}
+                    >
+                      <div className="flex-1 p-6">
+                        <h3 className="text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                          {article.description}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-primary">
+                          <span>Read More</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                      <div className="w-full sm:w-48 h-48 sm:h-auto flex-shrink-0">
+                        <img 
+                          src={article.image} 
+                          alt={article.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="text-center mt-8">
+                  <Link 
+                    href="/articles"
+                    className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
+                    data-testid="link-all-articles"
+                  >
+                    View All Articles
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </section>
 

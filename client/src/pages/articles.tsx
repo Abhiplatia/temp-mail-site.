@@ -496,7 +496,6 @@ export default function Articles() {
             <img 
               src={article.featuredImage} 
               alt={`Featured image for article: ${article.title}`}
-              fetchPriority="high"
               className="w-full h-auto object-cover"
             />
           </div>
