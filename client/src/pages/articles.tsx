@@ -355,7 +355,7 @@ const articles: Article[] = [
     id: "temporary-email-vs-email-aliases",
     title: "Temporary Email vs Email Aliases: Which Is Right for You?",
     readTime: "5 min read",
-    featuredImage: featuredImage5,
+    featuredImage: featuredImage16,
     content: (
       <div className="space-y-4">
         <p>
@@ -440,7 +440,7 @@ const articles: Article[] = [
     id: "security-considerations-temp-email",
     title: "Security Considerations When Using Temporary Email",
     readTime: "6 min read",
-    featuredImage: featuredImage6,
+    featuredImage: featuredImage14,
     content: (
       <div className="space-y-4">
         <p>
@@ -670,28 +670,28 @@ const articles: Article[] = [
     id: "is-temporary-email-safe",
     title: "Is Temporary Email Safe? Myths vs Facts",
     readTime: "10 min read",
-    featuredImage: featuredImage23,
+    featuredImage: featuredImage6,
     externalUrl: "/is-temporary-email-safe.html"
   },
   {
     id: "temp-mail-spam-hacker-protection",
     title: "How Temp Mail Protects from Spam & Hackers",
     readTime: "9 min read",
-    featuredImage: featuredImage15,
+    featuredImage: featuredImage22,
     externalUrl: "/temp-mail-spam-hacker-protection.html"
   },
   {
     id: "personal-email-privacy-risks",
     title: "Why You Shouldn't Use Personal Email Everywhere",
     readTime: "9 min read",
-    featuredImage: featuredImage22,
+    featuredImage: featuredImage25,
     externalUrl: "/personal-email-privacy-risks.html"
   },
   {
     id: "top-10-risks-sharing-real-email",
     title: "Top 10 Risks of Sharing Your Real Email Online",
     readTime: "10 min read",
-    featuredImage: featuredImage14,
+    featuredImage: featuredImage15,
     externalUrl: "/top-10-risks-sharing-real-email.html"
   },
   {
@@ -712,7 +712,7 @@ const articles: Article[] = [
     id: "temp-mail-vs-gmail-aliases",
     title: "Temp Mail vs Gmail Aliases Comparison",
     readTime: "9 min read",
-    featuredImage: featuredImage16,
+    featuredImage: featuredImage5,
     externalUrl: "/temp-mail-vs-gmail-aliases.html"
   },
   {
@@ -754,7 +754,7 @@ const articles: Article[] = [
     id: "future-temporary-email-2030",
     title: "Future of Temporary Email - 2030 Predictions",
     readTime: "10 min read",
-    featuredImage: featuredImage25,
+    featuredImage: featuredImage23,
     externalUrl: "/future-temporary-email-2030.html"
   },
   {
