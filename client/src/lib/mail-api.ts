@@ -75,7 +75,6 @@ class MailAPI {
       const data = await response.json();
       return data['hydra:member'].filter((domain: Domain) => domain.isActive);
     } catch (error: any) {
-      console.error('Error fetching domains:', error);
       // Propagate status code for rate limit detection
       if (error.status) {
         const err: any = new Error('Unable to fetch available domains. Please try again.');
@@ -102,13 +101,11 @@ class MailAPI {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         const errorMessage = errorData.detail || errorData.message || `HTTP ${response.status}`;
-        console.log('Account creation failed with status:', response.status, 'Error:', errorMessage);
         throw new Error(errorMessage);
       }
       
       return await response.json();
     } catch (error) {
-      console.error('Error creating account:', error);
       if (error instanceof Error) {
         throw error;
       }

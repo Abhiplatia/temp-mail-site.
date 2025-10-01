@@ -12,9 +12,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
 
-  // Serve attached_assets directory for images and static files
+  // Serve attached_assets directory for images and static files with aggressive caching
   const attachedAssetsPath = path.resolve(import.meta.dirname, "..", "attached_assets");
-  app.use("/attached_assets", express.static(attachedAssetsPath));
+  app.use("/attached_assets", express.static(attachedAssetsPath, {
+    maxAge: '1y', // Cache for 1 year
+    immutable: true,
+    etag: true,
+    lastModified: true,
+    setHeaders: (res, filepath) => {
+      // Add cache control headers for images
+      if (filepath.endsWith('.jpg') || filepath.endsWith('.jpeg') || filepath.endsWith('.png') || filepath.endsWith('.webp') || filepath.endsWith('.svg')) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      }
+    }
+  }));
 
   // Serve static HTML files from public directory BEFORE Vite catches them
   app.get("/*.html", async (req, res, next) => {
