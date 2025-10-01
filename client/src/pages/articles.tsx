@@ -58,6 +58,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage26} 
             alt="10 minute mail timer showing disposable email expiration - temp mail service" 
+            width="1280"
+            height="965"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -81,6 +83,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage14} 
             alt="Disposable temporary email security and privacy protection - fake email generator" 
+            width="1280"
+            height="853"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -122,6 +126,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage2} 
             alt="Technology servers powering temp mail and disposable temporary email infrastructure" 
+            width="1280"
+            height="719"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -145,6 +151,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage24} 
             alt="Person using laptop to access temp mail and disposable email accounts - free email generator" 
+            width="1280"
+            height="769"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -194,6 +202,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage25} 
             alt="Privacy protection with temp mail and disposable email - free email security" 
+            width="1280"
+            height="1280"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -220,6 +230,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage15} 
             alt="Spam protection with fake email and disposable temporary email - email generator security" 
+            width="1280"
+            height="863"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -267,6 +279,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage4} 
             alt="Decision making for temp mail vs regular email - disposable email guide" 
+            width="1280"
+            height="683"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -297,6 +311,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage22} 
             alt="Digital risks of using temp mail - disposable temporary email warnings" 
+            width="1280"
+            height="853"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -350,6 +366,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage16} 
             alt="Email comparison - temp mail vs email aliases - disposable email guide" 
+            width="1280"
+            height="683"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -382,6 +400,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage21} 
             alt="Comparison chart - disposable email vs email aliases for free email accounts" 
+            width="1280"
+            height="683"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -431,6 +451,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage6} 
             alt="Security lock protecting temp mail and disposable email accounts - email generator safety" 
+            width="1280"
+            height="853"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -457,6 +479,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage13} 
             alt="Password security and temp mail warnings - disposable email safety tips" 
+            width="1280"
+            height="853"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -520,6 +544,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage27} 
             alt="Future technology predictions for temp mail and disposable email services - 2030 email generator" 
+            width="1280"
+            height="853"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />
@@ -546,6 +572,8 @@ const articles: Article[] = [
           <img 
             src={featuredImage7} 
             alt="AI and future technology for disposable temporary email and temp mail automation" 
+            width="1280"
+            height="720"
             className="w-full rounded-lg shadow-md"
             loading="lazy"
           />

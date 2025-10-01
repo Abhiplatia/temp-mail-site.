@@ -22,24 +22,32 @@ const popularArticles = [
     title: "What is Disposable Temporary Email?",
     description: "Learn about disposable email addresses, how they work, and why they're essential for protecting your privacy online.",
     image: featuredImage1,
+    width: 1280,
+    height: 960,
   },
   {
     id: "tech-behind-disposable-email",
     title: "The Tech Behind Disposable Email Addresses",
     description: "Discover the technology and protocols that power temporary email services and enable instant, anonymous communication.",
     image: featuredImage2,
+    width: 1280,
+    height: 719,
   },
   {
     id: "privacy-benefits-temporary-email",
     title: "Privacy Benefits of Using Temporary Email Services",
     description: "Understand how temporary email addresses protect your data, break tracking chains, and safeguard against breaches.",
     image: featuredImage3,
+    width: 1280,
+    height: 853,
   },
   {
     id: "when-to-use-temporary-email",
     title: "When to Use (and Not Use) Temporary Email Addresses",
     description: "A comprehensive guide to choosing the right situations for disposable email and when to stick with permanent addresses.",
     image: featuredImage4,
+    width: 1280,
+    height: 683,
   },
 ];
 
@@ -276,10 +284,18 @@ export default function Home() {
   };
 
   useEffect(() => {
-    initializeEmail();
+    // Defer email initialization to idle time to unblock LCP
+    const idleCallback = 'requestIdleCallback' in window 
+      ? window.requestIdleCallback(() => initializeEmail())
+      : setTimeout(() => initializeEmail(), 1);
     
     // Cleanup on unmount
     return () => {
+      if ('requestIdleCallback' in window && typeof idleCallback === 'number') {
+        window.cancelIdleCallback(idleCallback);
+      } else {
+        clearTimeout(idleCallback as number);
+      }
       if (retryTimeoutRef.current) {
         clearTimeout(retryTimeoutRef.current);
       }
@@ -436,8 +452,9 @@ export default function Home() {
                         <img 
                           src={article.image} 
                           alt={`${article.title} - Temp Mail and Disposable Email Guide`}
-                          loading={index === 0 ? "eager" : "lazy"}
-                          fetchPriority={index === 0 ? "high" : undefined}
+                          width={article.width}
+                          height={article.height}
+                          loading="lazy"
                           decoding="async"
                           className="w-full h-full object-cover"
                         />

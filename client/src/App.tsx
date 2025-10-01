@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { useEffect } from "react";
 import { initGA } from "./lib/analytics";
 import { useAnalytics } from "./hooks/use-analytics";
+import { useMetaTags } from "./hooks/use-meta-tags";
 import Home from "@/pages/home";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import Terms from "@/pages/terms";
@@ -19,6 +20,9 @@ import NotFound from "@/pages/not-found";
 function Router() {
   // Track page views when routes change
   useAnalytics();
+  
+  // Update meta tags when routes change
+  useMetaTags();
   
   return (
     <Switch>
@@ -36,10 +40,20 @@ function Router() {
 }
 
 function App() {
-  // Initialize Google Analytics when app loads
+  // Initialize Google Analytics when app loads - deferred to idle
   useEffect(() => {
     if (import.meta.env.VITE_GA_MEASUREMENT_ID) {
-      initGA();
+      const idleCallback = 'requestIdleCallback' in window
+        ? window.requestIdleCallback(() => initGA())
+        : setTimeout(() => initGA(), 1000);
+      
+      return () => {
+        if ('requestIdleCallback' in window && typeof idleCallback === 'number') {
+          window.cancelIdleCallback(idleCallback);
+        } else {
+          clearTimeout(idleCallback as number);
+        }
+      };
     }
   }, []);
 
