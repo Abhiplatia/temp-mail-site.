@@ -3,35 +3,35 @@ import { ArrowLeft, Clock, BookOpen } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 // Import featured images
-import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.jpg';
-import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.jpg';
-import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.jpg';
-import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.jpg';
-import featuredImage5 from '@assets/stock_images/comparison_options_s_b446eba5.jpg';
-import featuredImage6 from '@assets/stock_images/cybersecurity_lock_p_932f8acf.jpg';
-import featuredImage7 from '@assets/stock_images/future_technology_in_01c04159.jpg';
+import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.webp';
+import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.webp';
+import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.webp';
+import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.webp';
+import featuredImage5 from '@assets/stock_images/comparison_options_s_b446eba5.webp';
+import featuredImage6 from '@assets/stock_images/cybersecurity_lock_p_932f8acf.webp';
+import featuredImage7 from '@assets/stock_images/future_technology_in_01c04159.webp';
 
 // New article images
-import featuredImage8 from '@assets/stock_images/business_conflict_co_7a3513d8.jpg';
-import featuredImage9 from '@assets/stock_images/social_media_apps_on_a1c3578d.jpg';
-import featuredImage10 from '@assets/stock_images/artificial_intellige_aca87dd0.jpg';
-import featuredImage11 from '@assets/stock_images/online_shopping_ecom_2b08319c.jpg';
-import featuredImage12 from '@assets/stock_images/gaming_setup_compute_4b33626b.jpg';
-import featuredImage13 from '@assets/stock_images/students_studying_la_0fede227.jpg';
-import featuredImage14 from '@assets/stock_images/cyber_security_shiel_45e4349a.jpg';
-import featuredImage15 from '@assets/stock_images/spam_emails_hacker_a_2b5f36e5.jpg';
-import featuredImage16 from '@assets/stock_images/email_comparison_vs__805d8faa.jpg';
-import featuredImage17 from '@assets/stock_images/step_by_step_guide_t_4aa1741e.jpg';
-import featuredImage18 from '@assets/stock_images/email_verification_c_45093681.jpg';
-import featuredImage19 from '@assets/stock_images/vpn_network_connecti_3cc92aae.jpg';
-import featuredImage20 from '@assets/stock_images/world_map_global_int_e2f47143.jpg';
-import featuredImage21 from '@assets/stock_images/comparison_chart_ser_79046821.jpg';
-import featuredImage22 from '@assets/stock_images/digital_risk_warning_4cb2dda7.jpg';
-import featuredImage23 from '@assets/stock_images/future_technology_in_84839f92.jpg';
-import featuredImage24 from '@assets/stock_images/person_using_laptop__0b93c5c6.jpg';
-import featuredImage25 from '@assets/stock_images/privacy_protection_p_a31f1fcc.jpg';
-import featuredImage26 from '@assets/stock_images/timer_clock_expirati_ad1b5d14.jpg';
-import featuredImage27 from '@assets/stock_images/troubleshooting_prob_dbf40624.jpg';
+import featuredImage8 from '@assets/stock_images/business_conflict_co_7a3513d8.webp';
+import featuredImage9 from '@assets/stock_images/social_media_apps_on_a1c3578d.webp';
+import featuredImage10 from '@assets/stock_images/artificial_intellige_aca87dd0.webp';
+import featuredImage11 from '@assets/stock_images/online_shopping_ecom_2b08319c.webp';
+import featuredImage12 from '@assets/stock_images/gaming_setup_compute_4b33626b.webp';
+import featuredImage13 from '@assets/stock_images/students_studying_la_0fede227.webp';
+import featuredImage14 from '@assets/stock_images/cyber_security_shiel_45e4349a.webp';
+import featuredImage15 from '@assets/stock_images/spam_emails_hacker_a_2b5f36e5.webp';
+import featuredImage16 from '@assets/stock_images/email_comparison_vs__805d8faa.webp';
+import featuredImage17 from '@assets/stock_images/step_by_step_guide_t_4aa1741e.webp';
+import featuredImage18 from '@assets/stock_images/email_verification_c_45093681.webp';
+import featuredImage19 from '@assets/stock_images/vpn_network_connecti_3cc92aae.webp';
+import featuredImage20 from '@assets/stock_images/world_map_global_int_e2f47143.webp';
+import featuredImage21 from '@assets/stock_images/comparison_chart_ser_79046821.webp';
+import featuredImage22 from '@assets/stock_images/digital_risk_warning_4cb2dda7.webp';
+import featuredImage23 from '@assets/stock_images/future_technology_in_84839f92.webp';
+import featuredImage24 from '@assets/stock_images/person_using_laptop__0b93c5c6.webp';
+import featuredImage25 from '@assets/stock_images/privacy_protection_p_a31f1fcc.webp';
+import featuredImage26 from '@assets/stock_images/timer_clock_expirati_ad1b5d14.webp';
+import featuredImage27 from '@assets/stock_images/troubleshooting_prob_dbf40624.webp';
 
 interface Article {
   id: string;

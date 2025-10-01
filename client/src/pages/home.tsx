@@ -10,10 +10,10 @@ import { DomainSelector } from '@/components/domain-selector';
 import { trackEvent } from '@/lib/analytics';
 
 // Import featured images for popular articles
-import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.jpg';
-import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.jpg';
-import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.jpg';
-import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.jpg';
+import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.webp';
+import featuredImage2 from '@assets/stock_images/technology_servers_c_02b472de.webp';
+import featuredImage3 from '@assets/stock_images/digital_privacy_secu_8de02991.webp';
+import featuredImage4 from '@assets/stock_images/decision_making_choi_bc5f03c5.webp';
 
 // Popular articles data
 const popularArticles = [
