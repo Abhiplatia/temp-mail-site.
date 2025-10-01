@@ -437,7 +437,7 @@ export default function Home() {
                           src={article.image} 
                           alt={`${article.title} - Temp Mail and Disposable Email Guide`}
                           loading={index === 0 ? "eager" : "lazy"}
-                          fetchpriority={index === 0 ? "high" : undefined}
+                          fetchPriority={index === 0 ? "high" : undefined}
                           decoding="async"
                           className="w-full h-full object-cover"
                         />
