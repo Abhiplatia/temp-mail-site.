@@ -8,6 +8,13 @@ The site features comprehensive educational content with 27 in-depth articles (4
 
 ## Recent Changes
 
+**October 1, 2025:**
+- **Buy Me a Coffee Integration**: Added support button linking to https://buymeacoffee.com/platiabrothers
+  - Positioned between email display and inbox sections on home page
+  - Custom yellow branding (#FFDD00) with coffee cup SVG icon
+  - Smooth hover effects with scale and shadow transitions
+  - Opens in new tab with proper security attributes
+
 **September 30, 2025:**
 - **Major Content Expansion**: Created 20 additional comprehensive blog articles (800-1200 words each) for SEO optimization
 - All 20 new articles integrated into footer with organized categories: Use Cases, Security & Privacy, Guides & Comparisons, and Trends & Insights
