@@ -300,9 +300,9 @@ export default function Home() {
               <div className="w-8 h-8 email-gradient rounded-lg flex items-center justify-center">
                 <Mail className="w-5 h-5 text-primary-foreground" />
               </div>
-              <h1 className="text-xl font-bold text-foreground">
+              <div className="text-xl font-bold text-foreground">
                 QuickTempMail<span className="text-primary">.live</span>
-              </h1>
+              </div>
             </Link>
             <div className="text-sm text-muted-foreground hidden sm:block">
               Free • Anonymous • No Signup
@@ -381,22 +381,22 @@ export default function Home() {
 
             {/* Educational Content Section */}
             <div className="mt-12 space-y-12">
-              {/* What is Disposable Email Section */}
+              {/* What is Temp Mail / Disposable Email Section */}
               <section>
                 <div className="text-center mb-8">
-                  <h2 
+                  <h1 
                     className="text-2xl sm:text-3xl font-bold text-foreground mb-4"
                     data-testid="heading-main-title"
                   >
-                    What is Disposable Temporary E-mail?
-                  </h2>
+                    Free Temp Mail - Disposable Temporary Email & 10 Minute Mail
+                  </h1>
                   <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                    Disposable email is a free email service that allows you to receive emails at a temporary address that 
-                    automatically self-destructs after a certain time period. It's also known by names like: tempmail, 10minutemail, 
-                    10minmail, throwaway email, fake-mail, fake email generator, burner mail or trash-mail. Many forums, 
-                    Wi-Fi hotspots, websites and blogs require visitors to register before they can view content, post comments 
-                    or download files. QuickTempMail.live is the most advanced temporary email service that helps you avoid 
-                    spam and protect your privacy.
+                    Get instant <strong>temp mail</strong> and disposable temporary email addresses with our free email generator. 
+                    Our <strong>10 minute mail</strong> service provides disposable email accounts and fake email addresses that 
+                    automatically expire. Also known as temporary disposable mail, tempmail, 10minutemail, 
+                    10minmail, throwaway email, fake-mail, email generator, burner mail or trash-mail. 
+                    Create <strong>free email</strong> addresses instantly - perfect for disposable addresses when you need to 
+                    protect your privacy. QuickTempMail.live is your trusted temp email provider with no signup required.
                   </p>
                 </div>
               </section>
@@ -408,7 +408,7 @@ export default function Home() {
                     className="text-2xl sm:text-3xl font-bold text-foreground mb-4"
                     data-testid="heading-popular-articles"
                   >
-                    Popular Articles
+                    Learn About Temp Mail & Disposable Email Addresses
                   </h2>
                 </div>
 
@@ -435,7 +435,7 @@ export default function Home() {
                       <div className="w-full sm:w-48 h-48 sm:h-auto flex-shrink-0">
                         <img 
                           src={article.image} 
-                          alt={article.title}
+                          alt={`${article.title} - Temp Mail and Disposable Email Guide`}
                           loading="lazy"
                           decoding="async"
                           className="w-full h-full object-cover"
@@ -460,13 +460,13 @@ export default function Home() {
               {/* Tech Behind Section */}
               <section>
                 <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-                  <h3 
+                  <h2 
                     className="text-xl font-bold text-foreground mb-6 flex items-center"
                     data-testid="heading-tech-behind"
                   >
                     <Shield className="w-5 h-5 text-primary mr-3" />
-                    The Tech behind Disposable Email Addresses
-                  </h3>
+                    How Temp Mail & 10 Minute Mail Works - Disposable Email Technology
+                  </h2>
                   
                   <div className="space-y-4 text-muted-foreground">
                     <p>
@@ -508,13 +508,13 @@ export default function Home() {
               {/* Why Need Section */}
               <section>
                 <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-                  <h3 
+                  <h2 
                     className="text-xl font-bold text-foreground mb-6 flex items-center"
                     data-testid="heading-why-need"
                   >
                     <Zap className="w-5 h-5 text-primary mr-3" />
-                    Why would you need a disposable email address?
-                  </h3>
+                    Why Use Temp Email, Fake Email & Disposable Email Accounts?
+                  </h2>
                   
                   <div className="space-y-4 text-muted-foreground mb-6">
                     <p>
@@ -588,13 +588,13 @@ export default function Home() {
               {/* How to Choose Section */}
               <section>
                 <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-                  <h3 
+                  <h2 
                     className="text-xl font-bold text-foreground mb-6 flex items-center"
                     data-testid="heading-how-choose"
                   >
                     <Clock className="w-5 h-5 text-primary mr-3" />
-                    How to Choose a Disposable Email?
-                  </h3>
+                    How to Choose the Best Free Email Generator & Temp Mail Service
+                  </h2>
                   
                   <p className="text-muted-foreground mb-6">The best temporary email provider should:</p>
                   
@@ -638,12 +638,12 @@ export default function Home() {
               {/* How to Use Section */}
               <section>
                 <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-                  <h3 
+                  <h2 
                     className="text-xl font-bold text-foreground mb-6"
                     data-testid="heading-how-use"
                   >
-                    How to Use QuickTempMail.live?
-                  </h3>
+                    How to Use Our Temp Mail & Free Email Generator?
+                  </h2>
                   
                   <div className="space-y-4 text-muted-foreground">
                     <p>
@@ -665,14 +665,109 @@ export default function Home() {
                 </div>
               </section>
 
+              {/* FAQ Section with Schema */}
+              <section>
+                <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
+                  <h2 className="text-2xl font-bold text-foreground mb-6" data-testid="heading-faq">
+                    Frequently Asked Questions - Temp Mail & Disposable Email
+                  </h2>
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">What is temp mail or disposable temporary email?</h3>
+                      <p className="text-muted-foreground">Temp mail (also called disposable temporary email, 10 minute mail, or fake email) is a free email service that provides temporary email addresses that automatically expire after a set time period, protecting your privacy without requiring signup.</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">How does 10 minute mail work?</h3>
+                      <p className="text-muted-foreground">10 minute mail generates a disposable email address that lasts for 10 minutes. You can receive emails instantly, and the address automatically expires to protect your privacy. Our temp email service works the same way.</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">Is temp mail free? Are there free email accounts available?</h3>
+                      <p className="text-muted-foreground">Yes! Our temp mail service is completely free. You can generate unlimited disposable email accounts and free email addresses without any cost or registration.</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">Can I use fake email or disposable addresses for account verification?</h3>
+                      <p className="text-muted-foreground">Yes, you can use our fake email generator and disposable addresses for most online registrations, social media signups, and temporary verifications. However, avoid using temp mail for important accounts like banking.</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">What's the difference between temp mail and regular email?</h3>
+                      <p className="text-muted-foreground">Temp mail provides temporary disposable mail addresses that expire automatically, while regular email accounts are permanent. Use disposable email for privacy and avoiding spam, and use regular email for important communications.</p>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">How do I create disposable email accounts quickly?</h3>
+                      <p className="text-muted-foreground">Simply visit our free email generator homepage - we automatically create a temp email address for you instantly. No registration, no personal information required. Just use the disposable email immediately!</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <script 
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                      "@context": "https://schema.org",
+                      "@type": "FAQPage",
+                      "mainEntity": [
+                        {
+                          "@type": "Question",
+                          "name": "What is temp mail or disposable temporary email?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Temp mail (also called disposable temporary email, 10 minute mail, or fake email) is a free email service that provides temporary email addresses that automatically expire after a set time period, protecting your privacy without requiring signup."
+                          }
+                        },
+                        {
+                          "@type": "Question",
+                          "name": "How does 10 minute mail work?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "10 minute mail generates a disposable email address that lasts for 10 minutes. You can receive emails instantly, and the address automatically expires to protect your privacy."
+                          }
+                        },
+                        {
+                          "@type": "Question",
+                          "name": "Is temp mail free? Are there free email accounts available?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes! Our temp mail service is completely free. You can generate unlimited disposable email accounts and free email addresses without any cost or registration."
+                          }
+                        },
+                        {
+                          "@type": "Question",
+                          "name": "Can I use fake email or disposable addresses for account verification?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes, you can use our fake email generator and disposable addresses for most online registrations, social media signups, and temporary verifications. However, avoid using temp mail for important accounts like banking."
+                          }
+                        },
+                        {
+                          "@type": "Question",
+                          "name": "What's the difference between temp mail and regular email?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Temp mail provides temporary disposable mail addresses that expire automatically, while regular email accounts are permanent. Use disposable email for privacy and avoiding spam, and use regular email for important communications."
+                          }
+                        },
+                        {
+                          "@type": "Question",
+                          "name": "How do I create disposable email accounts quickly?",
+                          "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Simply visit our free email generator homepage - we automatically create a temp email address for you instantly. No registration, no personal information required."
+                          }
+                        }
+                      ]
+                    })
+                  }}
+                />
+              </section>
+
               {/* Articles Section */}
               <section>
                 <div className="bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 rounded-xl p-6 sm:p-8">
-                  <h3 className="text-xl font-bold text-foreground mb-3" data-testid="heading-articles-promo">
-                    Learn More About Disposable Email
-                  </h3>
+                  <h2 className="text-xl font-bold text-foreground mb-3" data-testid="heading-articles-promo">
+                    Learn More About Temp Mail & Disposable Email
+                  </h2>
                   <p className="text-muted-foreground mb-4">
-                    Explore our comprehensive educational articles covering everything from the basics of temporary email to advanced privacy techniques and security best practices.
+                    Explore our comprehensive educational articles covering everything from the basics of temp mail and temporary email to advanced privacy techniques and security best practices for disposable email accounts.
                   </p>
                   <Link href="/articles" className="inline-flex items-center gap-2 text-primary hover:underline font-semibold" data-testid="link-articles-main">
                     Read Educational Articles →
