@@ -413,7 +413,7 @@ export default function Home() {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                  {popularArticles.map((article) => (
+                  {popularArticles.map((article, index) => (
                     <Link 
                       key={article.id}
                       href={`/articles#${article.id}`}
@@ -436,7 +436,8 @@ export default function Home() {
                         <img 
                           src={article.image} 
                           alt={`${article.title} - Temp Mail and Disposable Email Guide`}
-                          loading="lazy"
+                          loading={index === 0 ? "eager" : "lazy"}
+                          fetchpriority={index === 0 ? "high" : undefined}
                           decoding="async"
                           className="w-full h-full object-cover"
                         />
