@@ -21,7 +21,7 @@ export function AdSense({
   className = '',
   style = {}
 }: AdSenseProps) {
-  const adClient = import.meta.env.VITE_ADSENSE_CLIENT_ID || 'ca-pub-XXXXXXXXXXXXXXXXX';
+  const adClient = import.meta.env.VITE_ADSENSE_CLIENT_ID || 'ca-pub-6097791887535573';
 
   useEffect(() => {
     try {
