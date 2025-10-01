@@ -611,16 +611,16 @@ export default function Articles() {
         return;
       }
       
-      document.title = `${article.title} | QuickTempMail.live`;
+      document.title = `${article.title} | Temp Mail & Disposable Email Guide`;
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
-        metaDescription.setAttribute('content', `${article.title} - Learn about disposable temporary email technology and privacy best practices.`);
+        metaDescription.setAttribute('content', `${article.title} - Learn about temp mail, disposable temporary email, 10 minute mail, and fake email technology. Complete guide to free email generators and privacy.`);
       }
     } else {
-      document.title = 'Educational Articles | QuickTempMail.live';
+      document.title = 'Temp Mail Articles - Disposable Email & 10 Minute Mail Guides | QuickTempMail.live';
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
-        metaDescription.setAttribute('content', 'Learn everything about disposable temporary email technology, privacy benefits, and security best practices. Comprehensive guides and articles.');
+        metaDescription.setAttribute('content', 'Complete guides about temp mail, disposable temporary email, 10 minute mail, fake email generators, and free email services. Learn privacy best practices for disposable email accounts.');
       }
     }
     
