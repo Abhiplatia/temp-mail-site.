@@ -628,7 +628,7 @@ const articles: Article[] = [
     id: "best-ways-use-temporary-email",
     title: "Best Ways to Use Temporary Email 2025",
     readTime: "10 min read",
-    featuredImage: featuredImage8,
+    featuredImage: featuredImage17,
     externalUrl: "/best-ways-use-temporary-email.html"
   },
   {
@@ -670,7 +670,7 @@ const articles: Article[] = [
     id: "is-temporary-email-safe",
     title: "Is Temporary Email Safe? Myths vs Facts",
     readTime: "10 min read",
-    featuredImage: featuredImage14,
+    featuredImage: featuredImage23,
     externalUrl: "/is-temporary-email-safe.html"
   },
   {
@@ -684,14 +684,14 @@ const articles: Article[] = [
     id: "personal-email-privacy-risks",
     title: "Why You Shouldn't Use Personal Email Everywhere",
     readTime: "9 min read",
-    featuredImage: featuredImage25,
+    featuredImage: featuredImage22,
     externalUrl: "/personal-email-privacy-risks.html"
   },
   {
     id: "top-10-risks-sharing-real-email",
     title: "Top 10 Risks of Sharing Your Real Email Online",
     readTime: "10 min read",
-    featuredImage: featuredImage17,
+    featuredImage: featuredImage14,
     externalUrl: "/top-10-risks-sharing-real-email.html"
   },
   {
@@ -754,14 +754,14 @@ const articles: Article[] = [
     id: "future-temporary-email-2030",
     title: "Future of Temporary Email - 2030 Predictions",
     readTime: "10 min read",
-    featuredImage: featuredImage23,
+    featuredImage: featuredImage25,
     externalUrl: "/future-temporary-email-2030.html"
   },
   {
     id: "why-companies-hate-temp-mail",
     title: "Why Companies Hate Temp Mail (But Users Love It)",
     readTime: "9 min read",
-    featuredImage: featuredImage22,
+    featuredImage: featuredImage8,
     externalUrl: "/why-companies-hate-temp-mail.html"
   }
 ];
