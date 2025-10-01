@@ -17,6 +17,15 @@ The site features comprehensive educational content with 27 in-depth articles (4
   - **Resource Hints**: Added preconnect for api.mail.tm to reduce API latency
   - **Compression**: Optimized gzip compression with level 6 and 1KB threshold
   - **SEO Enhancement**: Added theme-color, improved viewport, og:locale, language meta tags
+- **Image Optimization**: Comprehensive WebP conversion achieving 60.6% size reduction
+  - **WebP Conversion**: Converted all 27 JPG images to WebP format using sharp (quality=80, effort=6)
+  - **Size Reduction**: Reduced total image payload from 5.49 MB to 2.16 MB (60.6% reduction)
+  - **React Components**: Updated all 27 image imports in home.tsx and articles.tsx to use .webp format
+  - **HTML Files**: Batch updated all 27 article HTML files to reference WebP images
+  - **LCP Optimization**: Added fetchPriority="high" and loading="eager" to first visible article image
+  - **Loading Strategy**: Lazy loading for all non-LCP images with async decoding
+  - **Conversion Script**: Created scripts/convert-images-to-webp.js for future image optimization needs
+  - Expected to achieve 95+ Performance score on both mobile and desktop
 - **Accessibility Improvements**: Fixed issues causing Accessibility score drop from 92 to 85
   - **Contrast Enhancement**: Improved muted-foreground color from 45% to 35% lightness for WCAG AA compliance
   - **Tap Target Optimization**: Increased all interactive buttons to 44x44px minimum (refresh button, attachment buttons)
