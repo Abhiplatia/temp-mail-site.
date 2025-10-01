@@ -154,10 +154,11 @@ export default function Inbox({ refreshTrigger }: InboxProps) {
               <button 
                 onClick={fetchMessages}
                 disabled={loading}
-                className="text-muted-foreground hover:text-foreground p-1 rounded transition-colors disabled:opacity-50"
+                className="text-muted-foreground hover:text-foreground p-3 rounded transition-colors disabled:opacity-50"
                 data-testid="button-refresh-inbox"
+                aria-label="Refresh inbox"
               >
-                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
               </button>
             </div>
           </div>
