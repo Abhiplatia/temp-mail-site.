@@ -9,6 +9,14 @@ The site features comprehensive educational content with 27 in-depth articles (4
 ## Recent Changes
 
 **October 1, 2025:**
+- **PageSpeed Performance Optimizations**: Comprehensive optimizations to achieve 95+ scores across all metrics
+  - **Font Loading**: Reduced Google Fonts weight variations, added font-display:swap, deferred loading with media="print" trick
+  - **Caching**: Added 1-year immutable caching for static assets (images, CSS, JS)
+  - **Security Headers**: Added X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy
+  - **Code Cleanup**: Removed all console.log/error/warn statements from production code
+  - **Resource Hints**: Added preconnect for api.mail.tm to reduce API latency
+  - **Compression**: Optimized gzip compression with level 6 and 1KB threshold
+  - **SEO Enhancement**: Added theme-color, improved viewport, og:locale, language meta tags
 - **Article Images Fix**: Fixed article images not loading by adding express.static middleware for /attached_assets directory
   - All 27 articles now display images correctly in browser
   - Images served with proper Content-Type: image/jpeg headers

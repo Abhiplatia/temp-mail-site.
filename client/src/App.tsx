@@ -38,10 +38,7 @@ function Router() {
 function App() {
   // Initialize Google Analytics when app loads
   useEffect(() => {
-    // Verify required environment variable is present
-    if (!import.meta.env.VITE_GA_MEASUREMENT_ID) {
-      console.warn('Missing required Google Analytics key: VITE_GA_MEASUREMENT_ID');
-    } else {
+    if (import.meta.env.VITE_GA_MEASUREMENT_ID) {
       initGA();
     }
   }, []);

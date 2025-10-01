@@ -135,7 +135,6 @@ class MailAPI {
       this.authToken = data.token;
       return data.token;
     } catch (error) {
-      console.error('Error getting auth token:', error);
       if (error instanceof Error) {
         throw error;
       }
@@ -165,7 +164,6 @@ class MailAPI {
       const data = await response.json();
       return data['hydra:member'] || [];
     } catch (error) {
-      console.error('Error fetching messages:', error);
       if (error instanceof Error) {
         throw error;
       }
@@ -197,7 +195,6 @@ class MailAPI {
       
       return await response.json();
     } catch (error) {
-      console.error('Error fetching message details:', error);
       if (error instanceof Error) {
         throw error;
       }
@@ -220,11 +217,9 @@ class MailAPI {
         body: JSON.stringify({ seen: true })
       });
       
-      if (!response.ok && response.status !== 200) {
-        console.warn(`Failed to mark message as read: ${response.status}`);
-      }
+      // Silently fail if marking as read doesn't work
     } catch (error) {
-      console.warn('Error marking message as read:', error);
+      // Silently fail if marking as read doesn't work
     }
   }
 

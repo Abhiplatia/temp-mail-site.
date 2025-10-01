@@ -23,7 +23,7 @@ export default function AdBanner({
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (error) {
-      console.warn('AdSense initialization failed:', error);
+      // Silently fail if AdSense initialization doesn't work
     }
   }, []);
 
