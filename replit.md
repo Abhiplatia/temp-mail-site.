@@ -2,68 +2,7 @@
 
 ## Overview
 
-QuickTempMail.live is a temporary email service that provides users with disposable email addresses that automatically expire after 10 minutes. The application allows users to generate random temporary email addresses, receive emails in real-time, and manage their inbox during the session lifetime. The service is designed for privacy-conscious users who need temporary email addresses for testing, registrations, or avoiding spam.
-
-The site features comprehensive educational content with 27 in-depth articles (400-1200 words each) covering disposable email technology, privacy benefits, security considerations, best practices, use cases, and comparisons.
-
-## Recent Changes
-
-**October 1, 2025:**
-- **PageSpeed Performance Optimizations**: Comprehensive optimizations to achieve 95+ scores across all metrics
-  - **Font Loading**: Reduced Google Fonts weight variations, added font-display:swap, deferred loading with media="print" trick
-  - **Caching**: Added 1-year immutable caching for static assets (images, CSS, JS)
-  - **Security Headers**: Added X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy
-  - **Code Cleanup**: Removed all console.log/error/warn statements from production code
-  - **Resource Hints**: Added preconnect for api.mail.tm to reduce API latency
-  - **Compression**: Optimized gzip compression with level 6 and 1KB threshold
-  - **SEO Enhancement**: Added theme-color, improved viewport, og:locale, language meta tags
-- **Image Optimization**: Comprehensive WebP conversion achieving 60.6% size reduction
-  - **WebP Conversion**: Converted all 27 JPG images to WebP format using sharp (quality=80, effort=6)
-  - **Size Reduction**: Reduced total image payload from 5.49 MB to 2.16 MB (60.6% reduction)
-  - **React Components**: Updated all 27 image imports in home.tsx and articles.tsx to use .webp format
-  - **HTML Files**: Batch updated all 27 article HTML files to reference WebP images
-  - **LCP Optimization**: Added fetchPriority="high" and loading="eager" to first visible article image
-  - **Loading Strategy**: Lazy loading for all non-LCP images with async decoding
-  - **Conversion Script**: Created scripts/convert-images-to-webp.js for future image optimization needs
-  - Expected to achieve 95+ Performance score on both mobile and desktop
-- **Accessibility Improvements**: Fixed issues causing Accessibility score drop from 92 to 85
-  - **Contrast Enhancement**: Improved muted-foreground color from 45% to 35% lightness for WCAG AA compliance
-  - **Tap Target Optimization**: Increased all interactive buttons to 44x44px minimum (refresh button, attachment buttons)
-  - **Accessible Names**: Added descriptive aria-labels to all icon-only buttons with aria-hidden on decorative icons
-  - Expected to achieve 95+ Accessibility score
-- **SEO Fixes**: Fixed broken internal link in best-ways-use-temporary-email.html article
-  - Replaced non-existent /spam-protection-guide.html with existing /temp-mail-spam-hacker-protection.html
-  - Expected to achieve 95+ SEO score
-- **Article Images Fix**: Fixed article images not loading by adding express.static middleware for /attached_assets directory
-  - All 27 articles now display images correctly in browser
-  - Images served with proper Content-Type: image/jpeg headers
-  - Performance optimizations maintained (lazy loading, width/height attributes)
-- **Buy Me a Coffee Integration**: Added support button linking to https://buymeacoffee.com/platiabrothers
-  - Positioned between email display and inbox sections on home page
-  - Custom yellow branding (#FFDD00) with coffee cup SVG icon
-  - Smooth hover effects with scale and shadow transitions
-  - Opens in new tab with proper security attributes
-
-**September 30, 2025:**
-- **Major Content Expansion**: Created 20 additional comprehensive blog articles (800-1200 words each) for SEO optimization
-- All 20 new articles integrated into footer with organized categories: Use Cases, Security & Privacy, Guides & Comparisons, and Trends & Insights
-- Each new article includes featured images, SEO meta tags, schema markup, FAQs, and internal linking
-- Footer redesigned with 4-column layout displaying all 20 articles by category for easy navigation
-- All article links verified functional with proper data-testid attributes for testing compliance
-- Added Educational Articles section with 7 original comprehensive articles about disposable email technology
-- Integrated high-quality featured images for all articles with performance optimizations (lazy loading, async decoding)
-- Implemented professional article cards with hover effects and gradient overlays
-- Added Popular Articles section to home page displaying 4 featured articles with images in a 2x2 grid layout
-- Removed dark mode toggle from all pages (light mode only by user preference)
-- Updated contact information to single email: contact@quicktempmail.live
-- Made header "QuickTempMail.live" text clickable for home navigation
-- Added custom SVG favicon matching the header Mail icon design
-- Fixed HTML structure issues and nested anchor tag warnings throughout the site
-- **Critical Production Fix**: Implemented automatic retry with exponential backoff (2s, 4s, 8s, 16s, 32s) for Mail.tm API rate limits (HTTP 429)
-- **Silent Error Handling**: Users never see "Service busy" errors; retries happen automatically in background for smooth long-term operation
-- **Memory Leak Prevention**: Added proper timeout cleanup on unmount for both retry and initialization timeouts
-- **Loading State Optimization**: Maintained loading spinner during retries for better UX
-- **Concurrency Protection**: Tightened entry guards to prevent overlapping API attempts during scheduled retries
+QuickTempMail.live is a temporary email service providing disposable email addresses that expire automatically after 10 minutes. It enables users to generate random temporary email addresses, receive emails in real-time, and manage their inbox for privacy and spam avoidance. The service includes extensive educational content with 27 articles covering disposable email technology, privacy benefits, security, best practices, and use cases. The project aims for high performance with 95+ PageSpeed scores, robust SEO, and a user-friendly experience.
 
 ## User Preferences
 
@@ -72,131 +11,70 @@ Design preference: Light mode only (no dark mode toggle).
 
 ## System Architecture
 
-### Frontend Architecture
-- **Framework**: React with TypeScript using Vite as the build tool
-- **Routing**: Wouter for lightweight client-side routing
-- **UI Components**: shadcn/ui component library built on Radix UI primitives
-- **Styling**: Tailwind CSS with custom CSS variables for theming
-- **State Management**: TanStack Query for server state management and caching
-- **Form Handling**: React Hook Form with Zod validation schemas
-- **Pages**: Home, Articles (with 7 educational articles), Privacy Policy, Terms & Conditions, About Us, Contact Us, FAQ
+### Frontend
+- **Framework**: React with TypeScript, using Vite.
+- **Routing**: Wouter.
+- **UI Components**: shadcn/ui built on Radix UI.
+- **Styling**: Tailwind CSS with custom CSS variables.
+- **State Management**: TanStack Query for server state.
+- **Form Handling**: React Hook Form with Zod validation.
+- **Pages**: Home, Articles (27 educational articles), Privacy Policy, Terms & Conditions, About Us, Contact Us, FAQ.
+- **UI/UX Decisions**: Light mode only, professional article cards with hover effects, 4-column footer for articles, dynamic meta tags for SEO.
+- **Performance**: Optimized for 95+ PageSpeed scores including WebP image conversion, deferred blocking operations, font loading optimization, and immutable caching.
+- **Accessibility**: WCAG AA compliance with improved color contrast, increased tap target sizes, and descriptive aria-labels.
 
-### Backend Architecture  
-- **Runtime**: Node.js with Express.js framework
-- **Database**: PostgreSQL with Drizzle ORM for type-safe database operations
-- **Database Provider**: Neon Database (serverless PostgreSQL)
-- **Session Management**: PostgreSQL session store using connect-pg-simple
-- **Storage Pattern**: Repository pattern with in-memory fallback for development
+### Backend
+- **Runtime**: Node.js with Express.js.
+- **Database**: PostgreSQL with Drizzle ORM (Neon Database).
+- **Session Management**: PostgreSQL session store using `connect-pg-simple`.
+- **Storage Pattern**: Repository pattern with in-memory fallback.
 
 ### Data Models
-- **Users**: Basic user authentication with username/password
-- **Email Sessions**: Tracks active temporary email sessions with expiration times
-- **Database Schema**: Defined in shared/schema.ts using Drizzle and Zod for validation
-
-### Authentication & Session Management
-- **Session Storage**: PostgreSQL-based session storage for production
-- **Email Session Tracking**: Time-limited email sessions with automatic expiration
-- **Memory Storage**: Fallback in-memory storage for development/testing
+- **Users**: Basic authentication.
+- **Email Sessions**: Tracks active temporary email sessions with expiration.
+- **Schema**: Defined in `shared/schema.ts` using Drizzle and Zod.
 
 ### Email Integration
-- **Third-party Email API**: Integration with external email service providers
-- **Real-time Updates**: Polling mechanism for fetching new messages
-- **Message Management**: Full CRUD operations for email messages
-- **Attachment Support**: File attachment handling and download capabilities
+- **Third-party Email API**: Integration with an external email service provider for temporary email functionality.
+- **Real-time Updates**: Polling mechanism for new messages.
+- **Features**: CRUD operations for messages, attachment support.
+- **Robustness**: Automatic retry with exponential backoff for API rate limits (HTTP 429) and silent error handling.
 
 ### Educational Content
-- **Articles Section**: 27 comprehensive articles (400-1200 words each) organized into:
-  - **Original 7 Core Articles** (400-800 words):
-    - What is Disposable Temporary Email?
-    - The Tech Behind Disposable Email Addresses
-    - Privacy Benefits of Using Temporary Email Services
-    - When to Use (and Not Use) Temporary Email Addresses
-    - Temporary Email vs Email Aliases: Which Is Right for You?
-    - Security Considerations When Using Temporary Email
-    - The Future of Disposable Email Services
-  - **Use Cases Articles** (800-1200 words):
-    - Best Ways to Use Temporary Email 2025
-    - Temp Mail for Facebook, Instagram, Twitter Verification
-    - Temporary Email for ChatGPT & AI Tools
-    - Temp Mail for Online Shopping – Pros and Cons
-    - Disposable Email for Gaming Accounts
-    - How Students Use Temp Mail for Free Trials
-  - **Security & Privacy Articles** (800-1200 words):
-    - Is Temporary Email Safe? Myths vs Facts
-    - How Temp Mail Protects from Spam & Hackers
-    - Why You Shouldn't Use Personal Email Everywhere
-    - Top 10 Risks of Sharing Your Real Email Online
-    - Temp Mail vs VPN - Privacy Differences
-  - **Guides & Comparisons** (800-1200 words):
-    - Top 5 Free Temporary Email Services 2025
-    - Temp Mail vs Gmail Aliases Comparison
-    - Step-by-Step: Creating Temp Mail in 10 Seconds
-    - How to Bypass Email Verification with Temp Mail
-    - Why Temporary Emails Expire & How to Save Messages
-    - Troubleshooting: Why Am I Not Receiving Emails?
-  - **Trends & Insights** (800-1200 words):
-    - Why Disposable Email is Popular Worldwide
-    - Future of Temporary Email - 2030 Predictions
-    - Why Companies Hate Temp Mail (But Users Love It)
-- **Featured Images**: High-quality stock photos for each article with:
-  - Lazy loading and async decoding for performance
-  - Motion-safe hover animations
-  - Descriptive alt text for accessibility
-- **Article Cards**: Professional card design with image overlays, gradient effects, and hover scale animations
-- **Popular Articles Section**: Home page feature displaying 4 featured articles:
-  - 2x2 grid layout on desktop, single column on mobile
-  - Each card shows title, description, and image
-  - Images positioned on the right (desktop) or top (mobile)
-  - Hover effects with visual feedback
-  - Direct navigation to individual articles via hash links
-  - "View All Articles" link for full collection access
-- **Footer Navigation**: 4-column categorized layout with all 20 new articles organized by topic
-- **SEO Optimization**: 
-  - Dynamic page titles and meta descriptions for each article
-  - Open Graph meta tags for social sharing
-  - JSON-LD Article schema markup for rich results
-  - FAQ schema for featured snippets
-  - Internal linking between related articles
-- **Navigation**: Accessible from home page popular articles section and footer
+- **Structure**: 27 articles categorized into Original Core, Use Cases, Security & Privacy, Guides & Comparisons, and Trends & Insights.
+- **Features**: High-quality featured images (WebP, lazy-loaded), professional article cards, popular articles section on homepage, and categorized footer navigation.
+- **SEO**: Dynamic titles/meta descriptions, Open Graph tags, JSON-LD Article/FAQ schema, internal linking.
 
-### Monitoring & Analytics  
-- **Google Analytics**: Integrated GA4 tracking for user behavior and conversion tracking
-- **Custom Event Tracking**: Email generation, session extensions, and user interactions
-- **Error Handling**: Comprehensive error boundaries and user-friendly error messages
-
-### Development & Build
-- **Development**: Hot module replacement with Vite dev server
-- **Production Build**: Static assets served with Express.js
-- **TypeScript**: Full type safety across frontend, backend, and shared schemas
-- **Code Organization**: Monorepo structure with shared types and utilities
+### Monitoring & Analytics
+- **Google Analytics**: GA4 for user behavior and conversion tracking.
+- **Custom Event Tracking**: For key user interactions (email generation, session extensions).
 
 ## External Dependencies
 
 ### Database Services
-- **Neon Database**: Serverless PostgreSQL hosting for production data persistence
-- **Drizzle Kit**: Database migration and schema management tools
+- **Neon Database**: Serverless PostgreSQL hosting.
+- **Drizzle Kit**: Database migration and schema management.
 
 ### Email Services
-- **Third-party Email API**: External email service provider for temporary email functionality (implementation details in mail-api.ts)
+- **Third-party Email API**: External provider for temporary email functionality.
 
 ### Analytics & Monitoring
-- **Google Analytics 4**: Web analytics and user behavior tracking
-- **AdSense Integration**: Advertisement serving (placeholder implementation)
+- **Google Analytics 4**: Web analytics and user behavior tracking.
 
 ### UI & Styling
-- **Radix UI**: Headless UI component primitives for accessibility
-- **Tailwind CSS**: Utility-first CSS framework
-- **Lucide React**: Icon library for consistent iconography
-- **Inter & JetBrains Mono**: Web fonts from Google Fonts
+- **Radix UI**: Headless UI component primitives.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **Lucide React**: Icon library.
+- **Google Fonts**: Inter & JetBrains Mono.
 
 ### Development Tools
-- **Replit Plugins**: Development environment integration for Replit platform
-- **ESBuild**: Fast JavaScript bundler for production builds
-- **PostCSS**: CSS processing with Tailwind and autoprefixer
+- **Replit Plugins**: Development environment integration.
+- **ESBuild**: JavaScript bundler.
+- **PostCSS**: CSS processing.
 
-### Runtime Dependencies
-- **TanStack Query**: Server state synchronization and caching
-- **Wouter**: Lightweight routing library
-- **Date-fns**: Date utility library for time formatting and manipulation
-- **Class Variance Authority**: Type-safe CSS class composition
-- **Zod**: Schema validation for runtime type checking
+### Runtime Libraries
+- **TanStack Query**: Server state synchronization and caching.
+- **Wouter**: Lightweight routing library.
+- **Date-fns**: Date utility library.
+- **Class Variance Authority**: Type-safe CSS class composition.
+- **Zod**: Schema validation.
