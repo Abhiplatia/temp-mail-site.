@@ -8,6 +8,7 @@ import Inbox from '@/components/inbox';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { DomainSelector } from '@/components/domain-selector';
 import { trackEvent } from '@/lib/analytics';
+import { AdSense } from '@/components/adsense';
 
 // Import featured images for popular articles
 import featuredImage1 from '@assets/stock_images/temporary_email_inbo_0b866c21.webp';
@@ -329,6 +330,13 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* HEADER AD */}
+        <AdSense 
+          adSlot="1234567890"
+          adFormat="horizontal"
+          className="mb-8"
+        />
+
         {/* Loading State */}
         {loading && (
           <div className="text-center py-12" data-testid="loading-state">
@@ -415,6 +423,13 @@ export default function Home() {
                     protect your privacy. QuickTempMail.live is your trusted temp email provider with no signup required.
                   </p>
                 </div>
+
+                {/* CONTENT AD */}
+                <AdSense 
+                  adSlot="2345678901"
+                  adFormat="auto"
+                  className="my-8"
+                />
               </section>
 
               {/* Popular Articles Section */}
@@ -792,10 +807,26 @@ export default function Home() {
                   </Link>
                 </div>
               </section>
+
+              {/* SIDEBAR AD (positioned as standalone section) */}
+              <section>
+                <AdSense 
+                  adSlot="3456789012"
+                  adFormat="auto"
+                  className="my-8"
+                />
+              </section>
             </div>
 
           </>
         )}
+
+        {/* FOOTER AD */}
+        <AdSense 
+          adSlot="4567890123"
+          adFormat="horizontal"
+          className="mt-12"
+        />
       </main>
 
       {/* Footer */}
