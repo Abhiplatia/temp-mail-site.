@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import path from "path";
 import fs from "fs";
+import express from "express";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
@@ -10,6 +11,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+
+  // Serve attached_assets directory for images and static files
+  const attachedAssetsPath = path.resolve(import.meta.dirname, "..", "attached_assets");
+  app.use("/attached_assets", express.static(attachedAssetsPath));
 
   // Serve static HTML files from public directory BEFORE Vite catches them
   app.get("/*.html", async (req, res, next) => {

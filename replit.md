@@ -9,6 +9,10 @@ The site features comprehensive educational content with 27 in-depth articles (4
 ## Recent Changes
 
 **October 1, 2025:**
+- **Article Images Fix**: Fixed article images not loading by adding express.static middleware for /attached_assets directory
+  - All 27 articles now display images correctly in browser
+  - Images served with proper Content-Type: image/jpeg headers
+  - Performance optimizations maintained (lazy loading, width/height attributes)
 - **Buy Me a Coffee Integration**: Added support button linking to https://buymeacoffee.com/platiabrothers
   - Positioned between email display and inbox sections on home page
   - Custom yellow branding (#FFDD00) with coffee cup SVG icon
