@@ -158,7 +158,7 @@ export default function Inbox({ refreshTrigger }: InboxProps) {
                 data-testid="button-refresh-inbox"
                 aria-label="Refresh inbox"
               >
-                <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -281,20 +281,22 @@ export default function Inbox({ refreshTrigger }: InboxProps) {
                                   size="sm"
                                   variant="ghost"
                                   onClick={() => handlePreviewAttachment(attachment.downloadUrl, attachment.filename)}
-                                  className="h-8 w-8 p-0"
+                                  className="h-11 w-11 p-0"
                                   data-testid={`button-preview-${attachment.id}`}
+                                  aria-label={`Preview attachment ${attachment.filename}`}
                                 >
-                                  <Eye className="w-4 h-4" />
+                                  <Eye className="w-5 h-5" aria-hidden="true" />
                                 </Button>
                               )}
                               <Button
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => handleDownloadAttachment(attachment.downloadUrl, attachment.filename)}
-                                className="h-8 w-8 p-0"
+                                className="h-11 w-11 p-0"
                                 data-testid={`button-download-${attachment.id}`}
+                                aria-label={`Download attachment ${attachment.filename}`}
                               >
-                                <Download className="w-4 h-4" />
+                                <Download className="w-5 h-5" aria-hidden="true" />
                               </Button>
                             </div>
                           </div>
