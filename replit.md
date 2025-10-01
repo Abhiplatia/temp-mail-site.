@@ -17,6 +17,14 @@ The site features comprehensive educational content with 27 in-depth articles (4
   - **Resource Hints**: Added preconnect for api.mail.tm to reduce API latency
   - **Compression**: Optimized gzip compression with level 6 and 1KB threshold
   - **SEO Enhancement**: Added theme-color, improved viewport, og:locale, language meta tags
+- **Accessibility Improvements**: Fixed issues causing Accessibility score drop from 92 to 85
+  - **Contrast Enhancement**: Improved muted-foreground color from 45% to 35% lightness for WCAG AA compliance
+  - **Tap Target Optimization**: Increased all interactive buttons to 44x44px minimum (refresh button, attachment buttons)
+  - **Accessible Names**: Added descriptive aria-labels to all icon-only buttons with aria-hidden on decorative icons
+  - Expected to achieve 95+ Accessibility score
+- **SEO Fixes**: Fixed broken internal link in best-ways-use-temporary-email.html article
+  - Replaced non-existent /spam-protection-guide.html with existing /temp-mail-spam-hacker-protection.html
+  - Expected to achieve 95+ SEO score
 - **Article Images Fix**: Fixed article images not loading by adding express.static middleware for /attached_assets directory
   - All 27 articles now display images correctly in browser
   - Images served with proper Content-Type: image/jpeg headers
