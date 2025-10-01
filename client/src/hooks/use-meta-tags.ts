@@ -12,8 +12,8 @@ interface MetaTagsConfig {
 
 const routeMetaTags: Record<string, MetaTagsConfig> = {
   '/': {
-    title: 'Temp Mail - Disposable Temporary Email | 10 Minute Mail | Free Email Generator',
-    description: 'Free disposable temporary email service. Get instant temp mail, 10 minute mail, fake email addresses & disposable email accounts. Free email generator - no signup required!',
+    title: 'Temp Mail - Disposable Temporary Email',
+    description: 'Keep spam out of your mail and stay safe - just use a disposable temporary email address! Protect your personal email address from spam with QuickTempMail.',
     keywords: 'temp mail, disposable temporary email, 10 minute mail, temporary disposable mail, disposable email, temp email, fake email, email generator, disposable addresses, free email, 10min email, disposable email accounts, mail disposable, fake emails, free emails',
     canonical: 'https://quicktempmail.live',
   },
