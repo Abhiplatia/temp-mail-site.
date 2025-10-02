@@ -27,6 +27,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }));
 
+  // Serve sitemap.xml BEFORE Vite catches it
+  app.get("/sitemap.xml", async (req, res) => {
+    const sitemapPath = path.resolve(import.meta.dirname, "..", "public", "sitemap.xml");
+    try {
+      const content = await fs.promises.readFile(sitemapPath, "utf-8");
+      res.set({
+        "Content-Type": "application/xml; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
+      });
+      res.send(content);
+    } catch (error) {
+      res.status(404).send("Sitemap not found");
+    }
+  });
+
+  // Serve robots.txt BEFORE Vite catches it
+  app.get("/robots.txt", async (req, res) => {
+    const robotsPath = path.resolve(import.meta.dirname, "..", "public", "robots.txt");
+    try {
+      const content = await fs.promises.readFile(robotsPath, "utf-8");
+      res.set({
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
+      });
+      res.send(content);
+    } catch (error) {
+      res.status(404).send("Robots.txt not found");
+    }
+  });
+
   // Serve static HTML files from public directory BEFORE Vite catches them
   app.get("/*.html", async (req, res, next) => {
     const htmlFile = path.basename(req.path);
