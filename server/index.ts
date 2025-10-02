@@ -1,5 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import compression from "compression";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
@@ -29,6 +31,23 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Serve static files from public/ (sitemap.xml, robots.txt, HTML articles)
+// This must be BEFORE API routes and Vite to work properly
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const publicPath = path.resolve(__dirname, "..", "public");
+
+app.use(express.static(publicPath, {
+  index: false, // Don't serve index.html from public/
+  setHeaders: (res, filepath) => {
+    // Set proper caching headers
+    if (filepath.endsWith('.xml') || filepath.endsWith('.txt')) {
+      res.setHeader('Cache-Control', 'public, max-age=3600'); // 1 hour
+    } else if (filepath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400'); // 1 day
+    }
+  }
+}));
 
 // Process-level error handlers to prevent crashes
 process.on('uncaughtException', (err) => {
